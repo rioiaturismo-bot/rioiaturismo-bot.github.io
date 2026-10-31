@@ -8,28 +8,28 @@
 <meta name="description" content="Rio IA · Seu melhor amigo no Rio de Janeiro. Hospedagem, transfers, passeios, barcos e noite, tudo por WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* Layout: postal de un amigo — foto de Ipanema a sangre, banda de ondas del calçadão como hilo entre secciones, bandas azul marino fijas para el logo blanco */
 :root{
-  --navy:#0b2233; --navy-2:#14384f; --navy-ink:#e9f1f5;
-  --orange:#f58a1f; --orange-deep:#d9740f;
-  --teal:#18a7b5; --sun:#f2b134;
-  --bg:#f5ece0; --surface:#fffaf3; --fg:#1a1f24; --muted:#5b6670; --line:#e4d7c4;
-  --wave:#18a7b5;
-  --display:"Outfit","Avenir Next","Segoe UI",system-ui,sans-serif;
-  --body:"Nunito Sans","Segoe UI",system-ui,sans-serif;
+  --navy:#0D1B2A; --navy-2:#13283d; --navy-ink:#e9f1f5;
+  --orange:#00B4A6; --orange-deep:#00857B;
+  --teal:#4DD0C8; --sun:#F4B400;
+  --bg:#F5F5F5; --surface:#ffffff; --fg:#0D1B2A; --muted:#55606b; --line:#e1e5e8;
+  --wave:#00B4A6;
+  --display:"Montserrat","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --body:"Montserrat","Segoe UI",system-ui,sans-serif;
   --gutter-l:max(16px, env(safe-area-inset-left,0px));
   --gutter-r:max(16px, env(safe-area-inset-right,0px));
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#08192a; --surface:#0f2639; --fg:#eef3f6; --muted:#a3b3c0; --line:#1f3b52; --wave:#1fb7c5; color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#08192a; --surface:#0f2639; --fg:#eef3f6; --muted:#a3b3c0; --line:#1f3b52; --wave:#1fb7c5; color-scheme:dark}
+  --bg:#0a1520; --surface:#122334; --fg:#eef3f6; --muted:#a3b3c0; --line:#1f3b52; --wave:#1fb7c5; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0a1520; --surface:#122334; --fg:#eef3f6; --muted:#a3b3c0; --line:#1f3b52; --wave:#1fb7c5; color-scheme:dark}
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
-body{background:var(--bg); color:var(--fg); font:400 17px/1.6 var(--body); -webkit-font-smoothing:antialiased}
+body{background:var(--bg); color:var(--fg); font:400 16px/1.65 var(--body); -webkit-font-smoothing:antialiased}
 body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:10; background:var(--navy)}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--orange); outline-offset:3px; border-radius:6px}
@@ -50,10 +50,10 @@ p{margin:0}
 .nav a:hover{opacity:1; color:var(--sun)}
 .lang{display:flex; border:1px solid #ffffff33; border-radius:999px; overflow:hidden}
 .lang button{background:transparent; border:0; color:var(--navy-ink); font:700 12px var(--display); letter-spacing:.06em; padding:8px 10px; cursor:pointer; min-height:36px}
-.lang button[aria-pressed="true"]{background:var(--teal); color:#fff}
+.lang button[aria-pressed="true"]{background:var(--orange); color:#fff}
 .btn{display:inline-flex; align-items:center; gap:10px; justify-content:center; text-decoration:none; font:800 15px/1 var(--display); letter-spacing:.05em; text-transform:uppercase; border-radius:999px; padding:15px 24px; min-height:48px; cursor:pointer; border:0; transition:transform .15s, background .15s}
 .btn:hover{transform:translateY(-2px)}
-.btn-wa{background:var(--orange); color:#fff; box-shadow:0 8px 24px #f58a1f55}
+.btn-wa{background:var(--orange); color:#fff; box-shadow:0 8px 24px #00b4a655}
 .btn-wa:hover{background:var(--orange-deep)}
 .btn-ghost{background:transparent; color:#fff; border:2px solid #ffffffaa}
 .btn svg{width:20px; height:20px; flex:none}
@@ -62,24 +62,24 @@ p{margin:0}
 @media (max-width:480px){.top .btn span{display:none}.top .btn{padding:10px 12px}.brand img{height:34px}}
 
 /* ---------- hero ---------- */
-.hero{position:relative; color:#fff; background:var(--navy) url("hero.jpg") center 35%/cover no-repeat; isolation:isolate}
-.hero::before{content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg,#0b2233cc 0%,#0b223377 40%,#0b2233ee 100%)}
+.hero{position:relative; color:#fff; background:var(--navy) url("hero.jpg") center 32%/cover no-repeat; isolation:isolate}
+.hero::before{content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg,#0d1b2acc 0%,#0d1b2a77 40%,#0d1b2aee 100%)}
 .hero .wrap{display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr); gap:40px; align-items:end; padding-block:96px 64px}
 .motto{font:500 clamp(18px,2.4vw,22px)/1.2 var(--display); color:var(--sun); letter-spacing:.02em}
-.hero h1{font-weight:800; font-size:clamp(40px,7vw,84px); letter-spacing:-.02em; margin-top:14px}
+.hero h1{font-weight:800; font-size:clamp(36px,6.2vw,74px); letter-spacing:-.025em; margin-top:14px}
 .hero h1 em{font-style:normal; color:var(--sun)}
 .hero .lede{font-size:clamp(17px,2vw,20px); max-width:34ch; margin-top:20px; color:#e9f1f5}
 .hero .ctas{display:flex; flex-wrap:wrap; gap:12px; margin-top:30px}
-.today{background:#fffaf3; color:#1a1f24; border-radius:20px; padding:22px; box-shadow:0 24px 60px #0008; transform:rotate(1.2deg)}
-.today .stamp{display:flex; justify-content:space-between; align-items:center; font:700 12px var(--display); letter-spacing:.12em; text-transform:uppercase; color:#b45f0b}
+.today{background:#ffffff; color:#0D1B2A; border-radius:20px; padding:22px; box-shadow:0 24px 60px #0008; transform:rotate(1.2deg)}
+.today .stamp{display:flex; justify-content:space-between; align-items:center; font:700 12px var(--display); letter-spacing:.12em; text-transform:uppercase; color:#00857B}
 .today .day{font:800 13px var(--display); background:var(--navy); color:#fff; padding:6px 10px; border-radius:999px; letter-spacing:.08em}
-.today h3{font-size:24px; margin-top:12px; color:#0b2233}
+.today h3{font-size:22px; margin-top:12px; color:#0D1B2A}
 .today p{color:#47525c; margin-top:8px; font-size:16px}
-.today a{display:inline-block; margin-top:14px; font:700 15px var(--display); color:#b45f0b; text-underline-offset:4px}
+.today a{display:inline-block; margin-top:14px; font:700 15px var(--display); color:#00857B; text-underline-offset:4px}
 @media (max-width:860px){.hero .wrap{grid-template-columns:minmax(0,1fr); padding-block:64px 48px}.today{transform:none}}
 
 /* ---------- calçadão wave band ---------- */
-.calcadao{height:26px; background-color:var(--bg); background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='26' viewBox='0 0 80 26'%3E%3Cpath d='M0 13 Q20 -1 40 13 T80 13' fill='none' stroke='%2318a7b5' stroke-width='6'/%3E%3C/svg%3E"); background-repeat:repeat-x; background-position:center}
+.calcadao{height:26px; background-color:var(--bg); background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='26' viewBox='0 0 80 26'%3E%3Cpath d='M0 13 Q20 -1 40 13 T80 13' fill='none' stroke='%2300B4A6' stroke-width='6'/%3E%3C/svg%3E"); background-repeat:repeat-x; background-position:center}
 
 /* ---------- sections ---------- */
 section{padding-block:80px}
@@ -139,7 +139,7 @@ blockquote footer{margin-top:10px; font:400 14px var(--body); color:var(--muted)
 details{border-bottom:1px solid var(--line)}
 summary{list-style:none; cursor:pointer; padding:20px 40px 20px 0; position:relative; font:700 19px/1.3 var(--display)}
 summary::-webkit-details-marker{display:none}
-summary::after{content:"+"; position:absolute; right:6px; top:16px; font:400 28px var(--display); color:var(--teal); transition:transform .2s}
+summary::after{content:"+"; position:absolute; right:6px; top:16px; font:400 28px var(--display); color:var(--orange); transition:transform .2s}
 details[open] summary::after{transform:rotate(45deg)}
 details p{padding:0 0 22px; color:var(--muted); max-width:62ch}
 
