@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rio IA · Seu melhor amigo no Rio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Rio IA · Seu melhor amigo no Rio de Janeiro. Hospedagem, transfers, passeios, barcos e noite, tudo por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* Layout: postal de un amigo — foto de Ipanema a sangre, banda de ondas del calçadão como hilo entre secciones, bandas azul marino fijas para el logo blanco */
+:root{
+  --navy:#0b2233; --navy-2:#14384f; --navy-ink:#e9f1f5;
+  --orange:#f58a1f; --orange-deep:#d9740f;
+  --teal:#18a7b5; --sun:#f2b134;
+  --bg:#f5ece0; --surface:#fffaf3; --fg:#1a1f24; --muted:#5b6670; --line:#e4d7c4;
+  --wave:#18a7b5;
+  --display:"Outfit","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --body:"Nunito Sans","Segoe UI",system-ui,sans-serif;
+  --gutter-l:max(16px, env(safe-area-inset-left,0px));
+  --gutter-r:max(16px, env(safe-area-inset-right,0px));
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#08192a; --surface:#0f2639; --fg:#eef3f6; --muted:#a3b3c0; --line:#1f3b52; --wave:#1fb7c5; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#08192a; --surface:#0f2639; --fg:#eef3f6; --muted:#a3b3c0; --line:#1f3b52; --wave:#1fb7c5; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--bg); color:var(--fg); font:400 17px/1.6 var(--body); -webkit-font-smoothing:antialiased}
+body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:10; background:var(--navy)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--orange); outline-offset:3px; border-radius:6px}
+h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0; line-height:1.1}
+p{margin:0}
+.wrap{max-width:1120px; margin:0 auto; padding-left:var(--gutter-l); padding-right:var(--gutter-r)}
+.eyebrow{font:700 13px/1 var(--display); letter-spacing:.14em; text-transform:uppercase; color:var(--orange-deep)}
+:root:not([data-theme="light"]) .eyebrow{color:var(--orange)}
+@media (prefers-color-scheme: light){.eyebrow{color:var(--orange-deep)}}
+:root[data-theme="light"] .eyebrow{color:var(--orange-deep)}
+
+/* ---------- header ---------- */
+.top{position:sticky; top:env(safe-area-inset-top,0px); z-index:20; background:var(--navy); color:var(--navy-ink)}
+.top .wrap{display:flex; align-items:center; gap:16px; padding-block:10px}
+.brand img{height:40px; width:auto; display:block}
+.nav{display:flex; gap:22px; margin-left:auto; font:600 15px var(--body)}
+.nav a{text-decoration:none; opacity:.85}
+.nav a:hover{opacity:1; color:var(--sun)}
+.lang{display:flex; border:1px solid #ffffff33; border-radius:999px; overflow:hidden}
+.lang button{background:transparent; border:0; color:var(--navy-ink); font:700 12px var(--display); letter-spacing:.06em; padding:8px 10px; cursor:pointer; min-height:36px}
+.lang button[aria-pressed="true"]{background:var(--teal); color:#fff}
+.btn{display:inline-flex; align-items:center; gap:10px; justify-content:center; text-decoration:none; font:800 15px/1 var(--display); letter-spacing:.05em; text-transform:uppercase; border-radius:999px; padding:15px 24px; min-height:48px; cursor:pointer; border:0; transition:transform .15s, background .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-wa{background:var(--orange); color:#fff; box-shadow:0 8px 24px #f58a1f55}
+.btn-wa:hover{background:var(--orange-deep)}
+.btn-ghost{background:transparent; color:#fff; border:2px solid #ffffffaa}
+.btn svg{width:20px; height:20px; flex:none}
+.top .btn{padding:10px 16px; min-height:40px; font-size:13px; box-shadow:none}
+@media (max-width:860px){.nav{display:none}.lang{margin-left:auto}}
+@media (max-width:480px){.top .btn span{display:none}.top .btn{padding:10px 12px}.brand img{height:34px}}
+
+/* ---------- hero ---------- */
+.hero{position:relative; color:#fff; background:var(--navy) url("hero.jpg") center 35%/cover no-repeat; isolation:isolate}
+.hero::before{content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg,#0b2233cc 0%,#0b223377 40%,#0b2233ee 100%)}
+.hero .wrap{display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr); gap:40px; align-items:end; padding-block:96px 64px}
+.motto{font:500 clamp(18px,2.4vw,22px)/1.2 var(--display); color:var(--sun); letter-spacing:.02em}
+.hero h1{font-weight:800; font-size:clamp(40px,7vw,84px); letter-spacing:-.02em; margin-top:14px}
+.hero h1 em{font-style:normal; color:var(--sun)}
+.hero .lede{font-size:clamp(17px,2vw,20px); max-width:34ch; margin-top:20px; color:#e9f1f5}
+.hero .ctas{display:flex; flex-wrap:wrap; gap:12px; margin-top:30px}
+.today{background:#fffaf3; color:#1a1f24; border-radius:20px; padding:22px; box-shadow:0 24px 60px #0008; transform:rotate(1.2deg)}
+.today .stamp{display:flex; justify-content:space-between; align-items:center; font:700 12px var(--display); letter-spacing:.12em; text-transform:uppercase; color:#b45f0b}
+.today .day{font:800 13px var(--display); background:var(--navy); color:#fff; padding:6px 10px; border-radius:999px; letter-spacing:.08em}
+.today h3{font-size:24px; margin-top:12px; color:#0b2233}
+.today p{color:#47525c; margin-top:8px; font-size:16px}
+.today a{display:inline-block; margin-top:14px; font:700 15px var(--display); color:#b45f0b; text-underline-offset:4px}
+@media (max-width:860px){.hero .wrap{grid-template-columns:minmax(0,1fr); padding-block:64px 48px}.today{transform:none}}
+
+/* ---------- calçadão wave band ---------- */
+.calcadao{height:26px; background-color:var(--bg); background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='26' viewBox='0 0 80 26'%3E%3Cpath d='M0 13 Q20 -1 40 13 T80 13' fill='none' stroke='%2318a7b5' stroke-width='6'/%3E%3C/svg%3E"); background-repeat:repeat-x; background-position:center}
+
+/* ---------- sections ---------- */
+section{padding-block:80px}
+.head{display:grid; gap:14px; max-width:680px; margin-bottom:40px}
+.head h2{font-size:clamp(30px,4.4vw,48px); font-weight:800; letter-spacing:-.01em}
+.head p{color:var(--muted); font-size:18px}
+
+.services{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px}
+.svc{display:flex; flex-direction:column; gap:10px; text-align:left; background:var(--surface); color:var(--fg); border:1px solid var(--line); border-radius:18px; padding:22px; cursor:pointer; font:inherit; transition:border-color .15s, transform .15s; min-width:0}
+.svc:hover{border-color:var(--teal); transform:translateY(-3px)}
+.svc .ico{width:44px; height:44px; border-radius:12px; display:grid; place-items:center; background:var(--navy); color:var(--sun)}
+.svc .ico svg{width:24px; height:24px}
+.svc h3{font-size:20px; font-weight:700}
+.svc p{color:var(--muted); font-size:15px; line-height:1.5}
+.svc .go{margin-top:auto; padding-top:6px; font:700 14px var(--display); color:var(--orange-deep); letter-spacing:.02em}
+:root:not([data-theme="light"]) .svc .go{color:var(--orange)}
+@media (prefers-color-scheme: light){.svc .go{color:var(--orange-deep)}}
+:root[data-theme="light"] .svc .go{color:var(--orange-deep)}
+.svc.top-pick{border-color:var(--orange)}
+.pill{align-self:flex-start; font:700 11px var(--display); letter-spacing:.1em; text-transform:uppercase; background:var(--orange); color:#fff; border-radius:999px; padding:4px 9px}
+@media (max-width:980px){.services{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.services{grid-template-columns:minmax(0,1fr)}}
+
+/* how */
+.how{background:var(--navy); color:var(--navy-ink)}
+.how .head p{color:#a9bccb}
+.how .eyebrow{color:var(--sun)!important}
+.steps{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:28px; list-style:none; padding:0; margin:0; counter-reset:s}
+.steps li{counter-increment:s; display:grid; gap:10px; border-top:3px solid var(--teal); padding-top:18px; min-width:0}
+.steps li::before{content:counter(s); font:800 44px/1 var(--display); color:var(--sun)}
+.steps h3{font-size:20px; color:#fff}
+.steps p{color:#b9c9d6; font-size:15.5px}
+.pay{margin-top:40px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; color:#b9c9d6; font-size:15px}
+.pay span.chip{border:1px solid #ffffff30; border-radius:999px; padding:6px 12px; color:#fff; font:600 14px var(--body)}
+@media (max-width:980px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.steps{grid-template-columns:minmax(0,1fr)}}
+
+/* about */
+.about{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.25fr); gap:56px; align-items:center}
+.photo{position:relative; max-width:420px; width:100%; justify-self:center}
+.photo img{display:block; width:100%; aspect-ratio:9/12; object-fit:cover; object-position:center 60%; border-radius:22px; max-width:100%}
+.photo::after{content:""; position:absolute; inset:14px -14px -14px 14px; border:3px solid var(--teal); border-radius:22px; z-index:-1}
+.photo{isolation:isolate}
+.about .text{display:grid; gap:18px; min-width:0}
+.about .text h2{font-size:clamp(30px,4.4vw,46px); font-weight:800}
+.about .text p{color:var(--muted); max-width:60ch}
+.about .text p strong{color:var(--fg)}
+.team{display:flex; flex-wrap:wrap; gap:10px; margin-top:6px}
+.team span{background:var(--surface); border:1px solid var(--line); border-radius:999px; padding:8px 14px; font:600 15px var(--body)}
+.team span b{font-family:var(--display)}
+blockquote{margin:8px 0 0; padding:20px 22px; background:var(--surface); border-left:4px solid var(--orange); border-radius:0 14px 14px 0; font:500 20px/1.4 var(--display)}
+blockquote footer{margin-top:10px; font:400 14px var(--body); color:var(--muted)}
+@media (max-width:860px){.about{grid-template-columns:minmax(0,1fr); gap:44px}.photo{max-width:320px}}
+
+/* faq */
+.faq{max-width:780px}
+details{border-bottom:1px solid var(--line)}
+summary{list-style:none; cursor:pointer; padding:20px 40px 20px 0; position:relative; font:700 19px/1.3 var(--display)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+"; position:absolute; right:6px; top:16px; font:400 28px var(--display); color:var(--teal); transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{padding:0 0 22px; color:var(--muted); max-width:62ch}
+
+/* final */
+.final{background:var(--navy-2); color:#fff; text-align:left}
+.final .wrap{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:32px; align-items:center}
+.final h2{font-size:clamp(30px,4.6vw,52px); font-weight:800}
+.final p{color:#c7d6e1; margin-top:12px; max-width:44ch}
+.contact{display:grid; gap:14px; justify-items:start}
+.num{display:flex; gap:10px; align-items:center; flex-wrap:wrap; font:700 20px var(--display); letter-spacing:.02em; font-variant-numeric:tabular-nums; user-select:all}
+.copy{background:transparent; border:1px solid #ffffff55; color:#fff; border-radius:999px; padding:6px 12px; font:600 13px var(--body); cursor:pointer; min-height:34px; user-select:none}
+.socials{display:flex; gap:16px; flex-wrap:wrap; font:600 15px var(--body)}
+.socials a{color:var(--sun); text-underline-offset:4px}
+@media (max-width:860px){.final .wrap{grid-template-columns:minmax(0,1fr)}}
+
+footer.site{background:var(--navy); color:#8fa6b8; font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:12px 24px; justify-content:space-between; align-items:center; padding-block:28px}
+footer.site img{height:30px; width:auto; display:block}
+
+/* floating WhatsApp on mobile */
+.fab{position:fixed; right:calc(16px + env(safe-area-inset-right,0px)); bottom:calc(16px + env(safe-area-inset-bottom,0px)); z-index:30; width:58px; height:58px; border-radius:50%; background:#25d366; color:#fff; display:none; place-items:center; box-shadow:0 10px 26px #0006}
+.fab svg{width:30px; height:30px}
+@media (max-width:860px){.fab{display:grid}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Rio IA"><img src="logo.png" alt="Rio IA"></a>
+    <nav class="nav" aria-label="Menu">
+      <a href="#servicos" data-i="nav_services">Serviços</a>
+      <a href="#como" data-i="nav_how">Como funciona</a>
+      <a href="#quem" data-i="nav_about">Quem somos</a>
+      <a href="#duvidas" data-i="nav_faq">Dúvidas</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Idioma">
+      <button type="button" id="l-pt" data-lang="pt" aria-pressed="true">PT</button>
+      <button type="button" id="l-es" data-lang="es" aria-pressed="false">ES</button>
+      <button type="button" id="l-en" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <a class="btn btn-wa wa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.1c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.8-2.2 1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg><span data-i="cta_short">Fale conosco</span></a>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero" style="padding-block:0">
+    <div class="wrap">
+      <div>
+        <p class="motto" data-i="motto">Soluções, não problemas.</p>
+        <h1 data-i="h1" data-html>Seu <em>melhor amigo</em> no Rio de Janeiro</h1>
+        <p class="lede" data-i="lede">Hospedagem, transfers, passeios, barcos e noite. Você conta o que quer viver, a gente resolve o resto pelo WhatsApp.</p>
+        <div class="ctas">
+          <a class="btn btn-wa wa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.1c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.8-2.2 1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg><span data-i="cta">Fale conosco no WhatsApp</span></a>
+          <a class="btn btn-ghost" href="#servicos" data-i="cta2">Ver serviços</a>
+        </div>
+      </div>
+      <aside class="today" aria-live="polite">
+        <div class="stamp"><span data-i="today_label">Dica de hoje</span><span class="day" id="dayName">—</span></div>
+        <h3 id="tipTitle">—</h3>
+        <p id="tipText">—</p>
+        <a href="#" class="wa-tip" target="_blank" rel="noopener" data-i="today_ask">Quero saber mais →</a>
+      </aside>
+    </div>
+  </section>
+
+  <div class="calcadao" aria-hidden="true"></div>
+
+  <section id="servicos">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow" data-i="svc_eyebrow">O que a gente resolve</p>
+        <h2 data-i="svc_title">Tudo o que você precisa no Rio, num só lugar</h2>
+        <p data-i="svc_lede">Toque num serviço e ele já chega no WhatsApp com a sua pergunta.</p>
+      </div>
+      <div class="services" id="services"></div>
+    </div>
+  </section>
+
+  <section class="how" id="como">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow" data-i="how_eyebrow">Como funciona</p>
+        <h2 data-i="how_title">Do primeiro “oi” até a volta pra casa</h2>
+        <p data-i="how_lede">IA que pensa, gente que cuida. Sempre tem uma pessoa de verdade do outro lado.</p>
+      </div>
+      <ol class="steps">
+        <li><h3 data-i="s1_t">Você escreve</h3><p data-i="s1_p">Manda um oi no WhatsApp contando datas, quantas pessoas e o que tem vontade de fazer.</p></li>
+        <li><h3 data-i="s2_t">A gente entende seu plano</h3><p data-i="s2_p">Perguntamos o necessário, respeitamos seu orçamento e mostramos opções com prós e contras.</p></li>
+        <li><h3 data-i="s3_t">Você reserva tranquilo</h3><p data-i="s3_p">Na maioria dos serviços: 50% para reservar e o resto até a véspera. Tudo combinado por escrito.</p></li>
+        <li><h3 data-i="s4_t">A gente segue por perto</h3><p data-i="s4_p">Durante a viagem continuamos no mesmo chat para o que precisar, de uma dica de restaurante a um imprevisto.</p></li>
+      </ol>
+      <div class="pay"><span data-i="pay_label">Formas de pagamento:</span><span class="chip">Pix</span><span class="chip" data-i="pay_card">Cartão de crédito</span><span class="chip" data-i="pay_link">Link de pagamento</span><span class="chip" data-i="pay_cash">Dinheiro</span></div>
+    </div>
+  </section>
+
+  <section id="quem">
+    <div class="wrap about">
+      <div class="photo"><img src="poster.jpg" alt="Clientes da Rio IA de jet ski na Baía de Guanabara, com o morro ao fundo" data-i-alt="photo_alt"></div>
+      <div class="text">
+        <p class="eyebrow" data-i="about_eyebrow">Quem somos</p>
+        <h2 data-i="about_title">Começou numa barraca de praia em Ipanema</h2>
+        <p data-i="about_p1" data-html>A Rio IA nasceu da experiência do <strong>Jordi Alessio</strong>, um uruguaio que passou anos atendendo turistas na Barraca do Uruguay, em Ipanema. Ali ele aprendeu o que cada viajante precisa e construiu uma rede de parceiros de confiança: transfers, guias, barcos, hotéis, restaurantes e agências.</p>
+        <p data-i="about_p2">Hoje juntamos esse conhecimento local com inteligência artificial para responder rápido, em vários idiomas, sem perder o principal: cada recomendação é a que a gente daria para um amigo.</p>
+        <div class="team"><span><b>Jordi</b> · <span data-i="role_founder" style="border:0;padding:0;background:none">fundador</span></span><span><b>Pablo</b></span><span><b>Santi</b></span><span><b>Matías</b></span></div>
+        <blockquote><span data-i="quote">“Nos trataram como amigos, não só como turistas.”</span><footer data-i="quote_by">Cliente da Rio IA, por WhatsApp</footer></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <div class="calcadao" aria-hidden="true"></div>
+
+  <section id="duvidas">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow" data-i="faq_eyebrow">Dúvidas</p>
+        <h2 data-i="faq_title">Perguntas frequentes</h2>
+      </div>
+      <div class="faq" id="faq"></div>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="wrap">
+      <div>
+        <h2 data-i="final_title">Conta pra gente o que você quer viver no Rio</h2>
+        <p data-i="final_p">Responde uma pessoa da equipe. Sem compromisso: primeiro a gente entende, depois propõe.</p>
+      </div>
+      <div class="contact">
+        <a class="btn btn-wa wa" href="#" target="_blank" rel="noopener"><span data-i="cta">Fale conosco no WhatsApp</span></a>
+        <div class="num"><span id="phone">+55 21 97323-6999</span><button type="button" class="copy" id="copyBtn" data-i="copy">Copiar número</button></div>
+        <div class="socials"><a href="https://www.instagram.com/rioi.a/" target="_blank" rel="noopener">Instagram @rioi.a</a><a href="https://www.facebook.com/profile.php?id=61596218541687" target="_blank" rel="noopener">Facebook</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <img src="logo.png" alt="Rio IA">
+    <span>Rio IA by SOLVAM · Rio de Janeiro, Brasil</span>
+    <span data-i="foot">Soluções, não problemas.</span>
+  </div>
+</footer>
+
+<a class="fab wa" href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.1c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.8-2.2 1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg></a>
+
+<script>
+const PHONE = "5521973236999";
+const REF = "📍 SITE";
+const ICONS = {
+  home:'<path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+  car:'<path d="M5 16h14M6 16l1.5-6h9L18 16M5 16v3h2v-3m10 0v3h2v-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="8" cy="13.5" r="1" fill="currentColor"/><circle cx="16" cy="13.5" r="1" fill="currentColor"/>',
+  mountain:'<path d="m2 19 7-11 4 6 3-4 6 9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="17" cy="5" r="2" fill="currentColor"/>',
+  island:'<path d="M2 18c3-2 5 2 8 0s5 2 8 0 3-1 4 0M12 15V7m0 0c-2-3-6-2-7 0 2-1 5 0 7 0Zm0 0c2-3 6-2 7 0-2-1-5 0-7 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+  boat:'<path d="M3 15h18l-3 4H6zM12 3v12M12 4l6 8h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+  music:'<path d="M9 18V5l11-2v13" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6.5" cy="18" r="2.5" fill="currentColor"/><circle cx="17.5" cy="16" r="2.5" fill="currentColor"/>',
+  food:'<path d="M7 3v8m-3-8v5a3 3 0 0 0 6 0V3M7 11v10m10-18c-2 2-3 5-3 8h3v10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+  plane:'<path d="M2 14l20-7-6 13-3-5zM13 15l-3 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'
+};
+const SERVICES = [
+  {k:"stay", i:"home", top:true}, {k:"transfer", i:"car"}, {k:"tours", i:"mountain"}, {k:"trips", i:"island"},
+  {k:"boat", i:"boat"}, {k:"night", i:"music"}, {k:"food", i:"food"}, {k:"flights", i:"plane"}
+];
+
+const T = {
+pt:{
+ nav_services:"Serviços",nav_how:"Como funciona",nav_about:"Quem somos",nav_faq:"Dúvidas",
+ cta_short:"Fale conosco",cta:"Fale conosco no WhatsApp",cta2:"Ver serviços",
+ motto:"Soluções, não problemas.",
+ h1:"Seu <em>melhor amigo</em> no Rio de Janeiro",
+ lede:"Hospedagem, transfers, passeios, barcos e noite. Você conta o que quer viver, a gente resolve o resto pelo WhatsApp.",
+ today_label:"Dica de hoje",today_ask:"Quero saber mais →",
+ svc_eyebrow:"O que a gente resolve",svc_title:"Tudo o que você precisa no Rio, num só lugar",svc_lede:"Toque num serviço e ele já chega no WhatsApp com a sua pergunta.",
+ ask:"Perguntar no WhatsApp →",popular:"Mais pedido",
+ svc:{
+  stay:["Hospedagem","Apartamentos e hotéis escolhidos para o seu grupo, datas e orçamento.","Oi! Estou procurando hospedagem no Rio."],
+  transfer:["Transfers","Do aeroporto ao hotel e para onde precisar, com motoristas de confiança.","Oi! Preciso de um transfer no Rio."],
+  tours:["Passeios no Rio","Um dia no Rio, Cristo e Pão de Açúcar, Floresta da Tijuca, favela tour e muito mais.","Oi! Quero fazer passeios no Rio."],
+  trips:["Fora do Rio","Ilha Grande, Arraial do Cabo, Búzios e Paraty, com tudo organizado.","Oi! Quero conhecer lugares fora do Rio."],
+  boat:["Barcos e iates","Pôr do sol na baía, aniversários e despedidas de solteiro ou solteira.","Oi! Quero alugar um barco ou iate."],
+  night:["Noite e festas","Samba, escolas de samba, festas e mesas nas melhores noites da semana.","Oi! Quero saber da noite e das festas no Rio."],
+  food:["Restaurantes","Onde comer bem em cada bairro, do boteco ao jantar especial.","Oi! Quero dicas de restaurantes no Rio."],
+  flights:["Passagens","Ajuda para encontrar e comprar voos dentro e fora do Brasil.","Oi! Preciso de ajuda com passagens aéreas."]
+ },
+ how_eyebrow:"Como funciona",how_title:"Do primeiro “oi” até a volta pra casa",how_lede:"IA que pensa, gente que cuida. Sempre tem uma pessoa de verdade do outro lado.",
+ s1_t:"Você escreve",s1_p:"Manda um oi no WhatsApp contando datas, quantas pessoas e o que tem vontade de fazer.",
+ s2_t:"A gente entende seu plano",s2_p:"Perguntamos o necessário, respeitamos seu orçamento e mostramos opções com prós e contras.",
+ s3_t:"Você reserva tranquilo",s3_p:"Na maioria dos serviços: 50% para reservar e o resto até a véspera. Tudo combinado por escrito.",
+ s4_t:"A gente segue por perto",s4_p:"Durante a viagem continuamos no mesmo chat para o que precisar, de uma dica de restaurante a um imprevisto.",
+ pay_label:"Formas de pagamento:",pay_card:"Cartão de crédito",pay_link:"Link de pagamento",pay_cash:"Dinheiro",
+ about_eyebrow:"Quem somos",about_title:"Começou numa barraca de praia em Ipanema",
+ about_p1:"A Rio IA nasceu da experiência do <strong>Jordi Alessio</strong>, um uruguaio que passou anos atendendo turistas na Barraca do Uruguay, em Ipanema. Ali ele aprendeu o que cada viajante precisa e construiu uma rede de parceiros de confiança: transfers, guias, barcos, hotéis, restaurantes e agências.",
+ about_p2:"Hoje juntamos esse conhecimento local com inteligência artificial para responder rápido, em vários idiomas, sem perder o principal: cada recomendação é a que a gente daria para um amigo.",
+ role_founder:"fundador",quote:"“Nos trataram como amigos, não só como turistas.”",quote_by:"Cliente da Rio IA, por WhatsApp",
+ photo_alt:"Clientes da Rio IA de jet ski na Baía de Guanabara, com o morro ao fundo",
+ faq_eyebrow:"Dúvidas",faq_title:"Perguntas frequentes",
+ faq:[
+  ["Em que idiomas vocês atendem?","Português, espanhol e inglês, e também francês. Escreva no idioma que preferir."],
+  ["Como faço o pagamento?","Aceitamos Pix, cartão de crédito (presencial ou por link de pagamento) e dinheiro. Para pagamentos com cartão de crédito pode haver um pequeno acréscimo pela taxa da operadora; sempre avisamos antes."],
+  ["Quanto preciso pagar para reservar?","Na maioria dos serviços, 50% para garantir a reserva e o restante até a véspera. Em alguns casos o fornecedor pede o valor total antecipado; sempre explicamos antes de você pagar."],
+  ["Vocês são uma agência?","Somos uma empresa de turismo que faz a ponte entre você e uma rede de parceiros de confiança no Rio: hospedagens, transfers, agências de passeio, barcos e casas noturnas. A gente intermedeia a reserva e acompanha você do começo ao fim."],
+  ["Atendem só no Rio de Janeiro?","Nossa base é o Rio, mas também organizamos viagens para Ilha Grande, Arraial do Cabo, Búzios e Paraty."],
+  ["E se eu já estiver no Rio e quiser algo para hoje?","Escreva mesmo assim. Muitas coisas dá para resolver no mesmo dia, e se não der, a gente te diz na hora e propõe outra opção."]
+ ],
+ final_title:"Conta pra gente o que você quer viver no Rio",final_p:"Responde uma pessoa da equipe. Sem compromisso: primeiro a gente entende, depois propõe.",
+ copy:"Copiar número",copied:"Copiado!",foot:"Soluções, não problemas.",
+ wa_main:"Oiii! 👋 Estou no Rio e quero aproveitar a cidade ao máximo 🇧🇷☀️ O que vocês me recomendam fazer por aqui?",
+ days:["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"],
+ tips:[
+  ["Domingo de praia e pôr do sol","Ipanema cheia de vida durante o dia e o aplauso ao pôr do sol no Arpoador. Um clássico carioca.","Oi! Vi a dica de domingo no site. O que vocês recomendam para hoje?"],
+  ["Samba na Pedra do Sal","Segunda à noite tem roda de samba ao ar livre na Pedra do Sal, no centro histórico. Programa de carioca.","Oi! Quero ir na Pedra do Sal hoje. Como faço?"],
+  ["Um dia no Rio","Cristo Redentor, Pão de Açúcar e os mirantes num só dia. Ideal para quem acabou de chegar.","Oi! Quero fazer o passeio Um dia no Rio."],
+  ["Escola de samba","Assistir ao ensaio de uma escola de samba é viver o Carnaval antes do Carnaval.","Oi! Quero conhecer uma escola de samba."],
+  ["Noite de quinta","Escola de samba ou a primeira noite boa do fim de semana. A gente te conta onde está o melhor de hoje.","Oi! O que tem de bom hoje à noite?"],
+  ["Samba de rua na sexta","Sexta é dia de samba de rua e bares cheios em Botafogo e na Lapa.","Oi! Quero um samba de rua hoje."],
+  ["Barco ao pôr do sol","Sábado é perfeito para ver o pôr do sol na baía de barco ou iate, com o Pão de Açúcar de cenário.","Oi! Quero um barco para ver o pôr do sol."]
+ ]
+},
+es:{
+ nav_services:"Servicios",nav_how:"Cómo funciona",nav_about:"Quiénes somos",nav_faq:"Preguntas",
+ cta_short:"Escribinos",cta:"Escribinos por WhatsApp",cta2:"Ver servicios",
+ motto:"Soluciones, no problemas.",
+ h1:"Tu <em>mejor amigo</em> en Río de Janeiro",
+ lede:"Alojamiento, transfers, paseos, barcos y noche. Vos nos contás qué querés vivir y nosotros resolvemos el resto por WhatsApp.",
+ today_label:"Dato de hoy",today_ask:"Quiero saber más →",
+ svc_eyebrow:"Lo que resolvemos",svc_title:"Todo lo que necesitás en Río, en un solo lugar",svc_lede:"Tocá un servicio y te llega al WhatsApp con tu pregunta lista.",
+ ask:"Preguntar por WhatsApp →",popular:"El más pedido",
+ svc:{
+  stay:["Alojamiento","Apartamentos y hoteles elegidos para tu grupo, tus fechas y tu presupuesto.","¡Hola! Estoy buscando alojamiento en Río."],
+  transfer:["Transfers","Del aeropuerto al hotel y a donde necesites, con choferes de confianza.","¡Hola! Necesito un transfer en Río."],
+  tours:["Paseos en Río","Un día en Río, Cristo y Pan de Azúcar, Floresta da Tijuca, favela tour y mucho más.","¡Hola! Quiero hacer paseos en Río."],
+  trips:["Fuera de Río","Ilha Grande, Arraial do Cabo, Búzios y Paraty, con todo organizado.","¡Hola! Quiero conocer lugares fuera de Río."],
+  boat:["Barcos y yates","Atardecer en la bahía, cumpleaños y despedidas de soltero o soltera.","¡Hola! Quiero alquilar un barco o yate."],
+  night:["Noche y fiestas","Samba, escuelas de samba, fiestas y mesas en las mejores noches de la semana.","¡Hola! Quiero saber de la noche y las fiestas en Río."],
+  food:["Restaurantes","Dónde comer bien en cada barrio, del boteco a la cena especial.","¡Hola! Quiero recomendaciones de restaurantes en Río."],
+  flights:["Pasajes","Te ayudamos a encontrar y comprar vuelos dentro y fuera de Brasil.","¡Hola! Necesito ayuda con pasajes de avión."]
+ },
+ how_eyebrow:"Cómo funciona",how_title:"Del primer “hola” hasta la vuelta a casa",how_lede:"IA que piensa, gente que cuida. Siempre hay una persona de verdad del otro lado.",
+ s1_t:"Nos escribís",s1_p:"Mandás un hola por WhatsApp con las fechas, cuántos son y qué tenés ganas de hacer.",
+ s2_t:"Entendemos tu plan",s2_p:"Te preguntamos lo justo, respetamos tu presupuesto y te mostramos opciones con pros y contras.",
+ s3_t:"Reservás tranquilo",s3_p:"En la mayoría de los servicios: 50% para reservar y el resto hasta el día anterior. Todo acordado por escrito.",
+ s4_t:"Seguimos cerca",s4_p:"Durante el viaje seguimos en el mismo chat para lo que necesites, desde un restaurante hasta un imprevisto.",
+ pay_label:"Formas de pago:",pay_card:"Tarjeta de crédito",pay_link:"Link de pago",pay_cash:"Efectivo",
+ about_eyebrow:"Quiénes somos",about_title:"Empezó en una barraca de playa en Ipanema",
+ about_p1:"Rio IA nació de la experiencia de <strong>Jordi Alessio</strong>, un uruguayo que pasó años atendiendo turistas en la Barraca do Uruguay, en Ipanema. Ahí aprendió qué necesita cada viajero y armó una red de socios de confianza: transfers, guías, barcos, hoteles, restaurantes y agencias.",
+ about_p2:"Hoy juntamos ese conocimiento local con inteligencia artificial para responder rápido, en varios idiomas, sin perder lo principal: cada recomendación es la que le daríamos a un amigo.",
+ role_founder:"fundador",quote:"“Nos trataron como amigos, no solo como turistas.”",quote_by:"Cliente de Rio IA, por WhatsApp",
+ photo_alt:"Clientes de Rio IA en moto de agua en la Bahía de Guanabara, con el morro de fondo",
+ faq_eyebrow:"Preguntas",faq_title:"Preguntas frecuentes",
+ faq:[
+  ["¿En qué idiomas atienden?","Español, portugués e inglés, y también francés. Escribinos en el idioma que prefieras."],
+  ["¿Cómo pago?","Aceptamos Pix, tarjeta de crédito (en persona o con link de pago) y efectivo. Con tarjeta de crédito puede haber un pequeño recargo por la comisión de la operadora; siempre te avisamos antes."],
+  ["¿Cuánto tengo que pagar para reservar?","En la mayoría de los servicios, 50% para asegurar la reserva y el resto hasta el día anterior. En algunos casos el proveedor pide el total por adelantado; siempre te lo explicamos antes de pagar."],
+  ["¿Son una agencia?","Somos una empresa de turismo que hace de puente entre vos y una red de socios de confianza en Río: alojamientos, transfers, agencias de paseos, barcos y boliches. Intermediamos la reserva y te acompañamos de principio a fin."],
+  ["¿Atienden solo en Río de Janeiro?","Nuestra base es Río, pero también organizamos viajes a Ilha Grande, Arraial do Cabo, Búzios y Paraty."],
+  ["¿Y si ya estoy en Río y quiero algo para hoy?","Escribinos igual. Muchas cosas se resuelven en el mismo día, y si no se puede, te lo decimos en el momento y te proponemos otra opción."]
+ ],
+ final_title:"Contanos qué querés vivir en Río",final_p:"Te responde una persona del equipo. Sin compromiso: primero entendemos, después proponemos.",
+ copy:"Copiar número",copied:"¡Copiado!",foot:"Soluciones, no problemas.",
+ wa_main:"¡Holaaa! 👋 Estoy en Río y quiero aprovechar la ciudad al máximo 🇧🇷☀️ ¿Qué me recomiendan hacer por acá?",
+ days:["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"],
+ tips:[
+  ["Domingo de playa y atardecer","Ipanema llena de vida de día y el aplauso al atardecer en el Arpoador. Un clásico carioca.","¡Hola! Vi el dato del domingo en la web. ¿Qué me recomiendan para hoy?"],
+  ["Samba en la Pedra do Sal","Los lunes a la noche hay ronda de samba al aire libre en la Pedra do Sal, en el centro histórico. Plan bien carioca.","¡Hola! Quiero ir a la Pedra do Sal hoy. ¿Cómo hago?"],
+  ["Un día en Río","Cristo Redentor, Pan de Azúcar y los miradores en un solo día. Ideal si recién llegaste.","¡Hola! Quiero hacer el paseo Un día en Río."],
+  ["Escuela de samba","Ver el ensayo de una escuela de samba es vivir el Carnaval antes del Carnaval.","¡Hola! Quiero conocer una escuela de samba."],
+  ["Jueves a la noche","Escuela de samba o la primera buena noche del finde. Te contamos dónde está lo mejor de hoy.","¡Hola! ¿Qué hay de bueno hoy a la noche?"],
+  ["Samba de calle el viernes","Los viernes hay samba de calle y bares llenos en Botafogo y Lapa.","¡Hola! Quiero un samba de calle hoy."],
+  ["Barco al atardecer","El sábado es perfecto para ver el atardecer en la bahía en barco o yate, con el Pan de Azúcar de fondo.","¡Hola! Quiero un barco para ver el atardecer."]
+ ]
+},
+en:{
+ nav_services:"Services",nav_how:"How it works",nav_about:"About us",nav_faq:"FAQ",
+ cta_short:"Message us",cta:"Message us on WhatsApp",cta2:"See services",
+ motto:"Solutions, not problems.",
+ h1:"Your <em>best friend</em> in Rio de Janeiro",
+ lede:"Places to stay, transfers, tours, boats and nightlife. Tell us what you want to experience and we sort out the rest on WhatsApp.",
+ today_label:"Today's tip",today_ask:"Tell me more →",
+ svc_eyebrow:"What we sort out",svc_title:"Everything you need in Rio, in one place",svc_lede:"Tap a service and it opens WhatsApp with your question ready to send.",
+ ask:"Ask on WhatsApp →",popular:"Most requested",
+ svc:{
+  stay:["Places to stay","Apartments and hotels picked for your group, your dates and your budget.","Hi! I'm looking for a place to stay in Rio."],
+  transfer:["Transfers","Airport to hotel and anywhere else you need, with drivers we trust.","Hi! I need a transfer in Rio."],
+  tours:["Tours in Rio","A day in Rio, Christ the Redeemer and Sugarloaf, Tijuca Forest, favela tour and more.","Hi! I'd like to book tours in Rio."],
+  trips:["Beyond Rio","Ilha Grande, Arraial do Cabo, Búzios and Paraty, fully organized.","Hi! I'd like to visit places outside Rio."],
+  boat:["Boats and yachts","Sunset on the bay, birthdays, bachelor and bachelorette parties.","Hi! I'd like to rent a boat or yacht."],
+  night:["Nightlife","Samba, samba schools, parties and tables on the best nights of the week.","Hi! What's the nightlife like in Rio?"],
+  food:["Restaurants","Where to eat well in every neighborhood, from local bars to special dinners.","Hi! Can you recommend restaurants in Rio?"],
+  flights:["Flights","Help finding and booking flights within Brazil and abroad.","Hi! I need help with flights."]
+ },
+ how_eyebrow:"How it works",how_title:"From the first “hi” to the flight home",how_lede:"AI that thinks, people who care. There's always a real person on the other side.",
+ s1_t:"You message us",s1_p:"Say hi on WhatsApp with your dates, group size and what you'd love to do.",
+ s2_t:"We get your plan",s2_p:"We ask only what we need, respect your budget and show you options with pros and cons.",
+ s3_t:"You book with peace of mind",s3_p:"For most services: 50% to book and the rest by the day before. Everything agreed in writing.",
+ s4_t:"We stay close",s4_p:"During your trip we stay in the same chat for anything you need, from a restaurant tip to the unexpected.",
+ pay_label:"Payment:",pay_card:"Credit card",pay_link:"Payment link",pay_cash:"Cash",
+ about_eyebrow:"About us",about_title:"It started at a beach stand in Ipanema",
+ about_p1:"Rio IA grew out of the experience of <strong>Jordi Alessio</strong>, a Uruguayan who spent years looking after tourists at Barraca do Uruguay in Ipanema. There he learned what every traveler needs and built a network of partners he trusts: transfers, guides, boats, hotels, restaurants and agencies.",
+ about_p2:"Today we combine that local knowledge with artificial intelligence to answer fast, in several languages, without losing what matters most: every recommendation is the one we'd give a friend.",
+ role_founder:"founder",quote:"“They treated us like friends rather than just tourists.”",quote_by:"Rio IA client, via WhatsApp",
+ photo_alt:"Rio IA clients on a jet ski in Guanabara Bay, with the hills behind",
+ faq_eyebrow:"FAQ",faq_title:"Frequently asked questions",
+ faq:[
+  ["Which languages do you speak?","English, Portuguese and Spanish, and French too. Write in whichever you prefer."],
+  ["How do I pay?","We accept Pix, credit cards (in person or by payment link) and cash. Credit card payments may carry a small surcharge for the card fee; we always tell you first."],
+  ["How much do I pay to book?","For most services, 50% to secure the booking and the rest by the day before. Some providers require full payment upfront; we always explain before you pay."],
+  ["Are you a travel agency?","We're a tourism company that connects you with a network of trusted partners in Rio: places to stay, transfers, tour agencies, boats and clubs. We handle the booking for you and stay with you from start to finish."],
+  ["Do you only cover Rio de Janeiro?","Rio is our base, but we also organize trips to Ilha Grande, Arraial do Cabo, Búzios and Paraty."],
+  ["I'm already in Rio and want something today. Can you help?","Message us anyway. Lots of things can be arranged the same day, and if not, we'll tell you right away and suggest something else."]
+ ],
+ final_title:"Tell us what you want to experience in Rio",final_p:"A real person from our team replies. No commitment: first we listen, then we suggest.",
+ copy:"Copy number",copied:"Copied!",foot:"Solutions, not problems.",
+ wa_main:"Hiii! 👋 I'm in Rio and want to make the most of the city 🇧🇷☀️ What do you recommend?",
+ days:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+ tips:[
+  ["Beach day and sunset","Ipanema buzzing all day, then the crowd applauding the sunset at Arpoador. A Rio classic.","Hi! I saw Sunday's tip on your site. What do you recommend for today?"],
+  ["Samba at Pedra do Sal","Monday nights there's open-air samba at Pedra do Sal in the historic center. A true local plan.","Hi! I want to go to Pedra do Sal tonight. How does it work?"],
+  ["A day in Rio","Christ the Redeemer, Sugarloaf and the viewpoints in one day. Perfect if you just arrived.","Hi! I'd like to book A Day in Rio."],
+  ["Samba school","Watching a samba school rehearse is living Carnival before Carnival.","Hi! I'd like to visit a samba school."],
+  ["Thursday night","A samba school or the first good night of the weekend. We'll tell you where the best of tonight is.","Hi! What's good tonight?"],
+  ["Street samba on Friday","Fridays mean street samba and packed bars in Botafogo and Lapa.","Hi! I'd like to find street samba tonight."],
+  ["Sunset boat trip","Saturday is perfect for watching the sunset on the bay by boat or yacht, with Sugarloaf in the background.","Hi! I'd like a boat for the sunset."]
+ ]
+}};
+
+const wa = (msg) => "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg + "\n" + REF);
+
+function pickLang(){
+  try{ const s = localStorage.getItem("rioia-lang"); if (T[s]) return s; }catch(e){}
+  const h = (location.hash||"").slice(1); if (T[h]) return h;
+  const n = (navigator.language||"pt").slice(0,2).toLowerCase();
+  return T[n] ? n : "en";
+}
+
+function render(lang){
+  const t = T[lang];
+  document.documentElement.lang = lang === "pt" ? "pt-BR" : lang;
+  document.querySelectorAll("[data-i]").forEach(el=>{
+    const v = t[el.dataset.i]; if (typeof v !== "string") return;
+    if (el.hasAttribute("data-html")) el.innerHTML = v; else el.textContent = v;
+  });
+  document.querySelectorAll("[data-i-alt]").forEach(el=>{ el.alt = t[el.dataset.iAlt]; });
+  document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.lang===lang)));
+  document.querySelectorAll("a.wa").forEach(a=>a.href = wa(t.wa_main));
+
+  document.getElementById("services").innerHTML = SERVICES.map(s=>{
+    const [title, desc] = t.svc[s.k];
+    return `<button type="button" class="svc${s.top?" top-pick":""}" data-k="${s.k}">
+      <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[s.i]}</svg></span>
+      ${s.top?`<span class="pill">${t.popular}</span>`:""}
+      <h3>${title}</h3><p>${desc}</p><span class="go">${t.ask}</span></button>`;
+  }).join("");
+
+  document.getElementById("faq").innerHTML = t.faq.map(([q,a],i)=>`<details${i===0?" open":""}><summary>${q}</summary><p>${a}</p></details>`).join("");
+
+  const d = new Date().getDay();
+  const [tt, tx, tm] = t.tips[d];
+  document.getElementById("dayName").textContent = t.days[d];
+  document.getElementById("tipTitle").textContent = tt;
+  document.getElementById("tipText").textContent = tx;
+  document.querySelector(".wa-tip").href = wa(tm);
+  current = lang;
+}
+let current = pickLang();
+
+document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>{
+  render(b.dataset.lang);
+  try{ localStorage.setItem("rioia-lang", b.dataset.lang); }catch(e){}
+}));
+document.getElementById("services").addEventListener("click", e=>{
+  const b = e.target.closest(".svc"); if (!b) return;
+  const link = document.createElement("a");
+  link.href = wa(T[current].svc[b.dataset.k][2]); link.target = "_blank"; link.rel = "noopener";
+  document.body.appendChild(link); link.click(); link.remove();
+});
+document.getElementById("copyBtn").addEventListener("click", async e=>{
+  const btn = e.currentTarget, num = document.getElementById("phone").textContent;
+  try{ await navigator.clipboard.writeText(num); btn.textContent = T[current].copied; }
+  catch(err){ const r = document.createRange(); r.selectNodeContents(document.getElementById("phone")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  setTimeout(()=>btn.textContent = T[current].copy, 1800);
+});
+render(current);
+</script>
+</body>
+</html>
