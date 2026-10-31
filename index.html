@@ -120,7 +120,7 @@ section{padding-block:80px}
 /* about */
 .about{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.25fr); gap:56px; align-items:center}
 .photo{position:relative; max-width:420px; width:100%; justify-self:center}
-.photo img{display:block; width:100%; aspect-ratio:9/12; object-fit:cover; object-position:center 60%; border-radius:22px; max-width:100%}
+.photo img,.photo video{display:block; width:100%; aspect-ratio:9/12; object-fit:cover; object-position:center 40%; border-radius:22px; max-width:100%; background:var(--navy)}
 .photo::after{content:""; position:absolute; inset:14px -14px -14px 14px; border:3px solid var(--teal); border-radius:22px; z-index:-1}
 .photo{isolation:isolate}
 .about .text{display:grid; gap:18px; min-width:0}
@@ -238,7 +238,7 @@ footer.site img{height:30px; width:auto; display:block}
 
   <section id="quem">
     <div class="wrap about">
-      <div class="photo"><img src="poster.jpg" alt="Clientes da Rio IA de jet ski na Baía de Guanabara, com o morro ao fundo" data-i-alt="photo_alt"></div>
+      <div class="photo"><video src="historia.mp4" poster="historia.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Jordi montando a barraca na praia de Ipanema" data-i-alt="photo_alt"></video></div>
       <div class="text">
         <p class="eyebrow" data-i="about_eyebrow">Quem somos</p>
         <h2 data-i="about_title">Começou numa barraca de praia em Ipanema</h2>
@@ -335,7 +335,7 @@ pt:{
  about_p1:"A Rio IA nasceu da experiência do <strong>Jordi Alessio</strong>, um uruguaio que passou anos atendendo turistas na Barraca do Uruguay, em Ipanema. Ali ele aprendeu o que cada viajante precisa e construiu uma rede de parceiros de confiança: transfers, guias, barcos, hotéis, restaurantes e agências.",
  about_p2:"Hoje juntamos esse conhecimento local com inteligência artificial para responder rápido, em vários idiomas, sem perder o principal: cada recomendação é a que a gente daria para um amigo.",
  role_founder:"fundador",quote:"“Nos trataram como amigos, não só como turistas.”",quote_by:"Cliente da Rio IA, por WhatsApp",
- photo_alt:"Clientes da Rio IA de jet ski na Baía de Guanabara, com o morro ao fundo",
+ photo_alt:"Jordi montando a barraca na praia de Ipanema",
  faq_eyebrow:"Dúvidas",faq_title:"Perguntas frequentes",
  faq:[
   ["Em que idiomas vocês atendem?","Português, espanhol e inglês, e também francês. Escreva no idioma que preferir."],
@@ -388,7 +388,7 @@ es:{
  about_p1:"Rio IA nació de la experiencia de <strong>Jordi Alessio</strong>, un uruguayo que pasó años atendiendo turistas en la Barraca do Uruguay, en Ipanema. Ahí aprendió qué necesita cada viajero y armó una red de socios de confianza: transfers, guías, barcos, hoteles, restaurantes y agencias.",
  about_p2:"Hoy juntamos ese conocimiento local con inteligencia artificial para responder rápido, en varios idiomas, sin perder lo principal: cada recomendación es la que le daríamos a un amigo.",
  role_founder:"fundador",quote:"“Nos trataron como amigos, no solo como turistas.”",quote_by:"Cliente de Rio IA, por WhatsApp",
- photo_alt:"Clientes de Rio IA en moto de agua en la Bahía de Guanabara, con el morro de fondo",
+ photo_alt:"Jordi armando la barraca en la playa de Ipanema",
  faq_eyebrow:"Preguntas",faq_title:"Preguntas frecuentes",
  faq:[
   ["¿En qué idiomas atienden?","Español, portugués e inglés, y también francés. Escribinos en el idioma que prefieras."],
@@ -441,7 +441,7 @@ en:{
  about_p1:"Rio IA grew out of the experience of <strong>Jordi Alessio</strong>, a Uruguayan who spent years looking after tourists at Barraca do Uruguay in Ipanema. There he learned what every traveler needs and built a network of partners he trusts: transfers, guides, boats, hotels, restaurants and agencies.",
  about_p2:"Today we combine that local knowledge with artificial intelligence to answer fast, in several languages, without losing what matters most: every recommendation is the one we'd give a friend.",
  role_founder:"founder",quote:"“They treated us like friends rather than just tourists.”",quote_by:"Rio IA client, via WhatsApp",
- photo_alt:"Rio IA clients on a jet ski in Guanabara Bay, with the hills behind",
+ photo_alt:"Jordi setting up the beach stand in Ipanema",
  faq_eyebrow:"FAQ",faq_title:"Frequently asked questions",
  faq:[
   ["Which languages do you speak?","English, Portuguese and Spanish, and French too. Write in whichever you prefer."],
@@ -482,7 +482,7 @@ function render(lang){
     const v = t[el.dataset.i]; if (typeof v !== "string") return;
     if (el.hasAttribute("data-html")) el.innerHTML = v; else el.textContent = v;
   });
-  document.querySelectorAll("[data-i-alt]").forEach(el=>{ el.alt = t[el.dataset.iAlt]; });
+  document.querySelectorAll("[data-i-alt]").forEach(el=>{ el.setAttribute(el.tagName==="VIDEO"?"aria-label":"alt", t[el.dataset.iAlt]); });
   document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.lang===lang)));
   document.querySelectorAll("a.wa").forEach(a=>a.href = wa(t.wa_main));
 
