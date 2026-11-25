@@ -163,6 +163,27 @@ footer.site img{height:30px; width:auto; display:block}
 .fab{position:fixed; right:calc(16px + env(safe-area-inset-right,0px)); bottom:calc(16px + env(safe-area-inset-bottom,0px)); z-index:30; width:58px; height:58px; border-radius:50%; background:#25d366; color:#fff; display:none; place-items:center; box-shadow:0 10px 26px #0006}
 .fab svg{width:30px; height:30px}
 @media (max-width:860px){.fab{display:grid}}
+
+/* Experiencias */
+.xp-filters{display:flex;flex-wrap:wrap;gap:8px;margin:-16px 0 24px}
+.xp-filters button{font:700 14px var(--display);border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:30px;padding:9px 16px;cursor:pointer}
+.xp-filters button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:var(--sun)}
+.xps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.xp{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;text-decoration:none;color:var(--fg);transition:transform .15s,border-color .15s;min-width:0}
+.xp:hover{transform:translateY(-2px);border-color:var(--orange)}
+.xp .ph{aspect-ratio:4/3;background:var(--navy) center/cover no-repeat}
+.xp .bd{display:flex;flex-direction:column;gap:6px;padding:16px 18px 18px;flex:1}
+.xp h3{font-size:19px;font-weight:700;line-height:1.25}
+.xp .pr{font:800 20px var(--display);color:var(--fg)}
+.xp .pr small{display:block;font:600 12px var(--body);color:var(--muted);margin-top:2px}
+.xp .go{margin-top:auto;padding-top:8px;font:700 14px var(--display);color:var(--orange-deep)}
+:root:not([data-theme="light"]) .xp .go{color:var(--orange)}
+@media (prefers-color-scheme: light){.xp .go{color:var(--orange-deep)}}
+:root[data-theme="light"] .xp .go{color:var(--orange-deep)}
+.xp-wa{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;margin-top:24px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 22px}
+.xp-wa p{color:var(--muted);font-size:15px;max-width:520px}
+@media (max-width:980px){.xps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.xps{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
 <body>
@@ -171,6 +192,7 @@ footer.site img{height:30px; width:auto; display:block}
   <div class="wrap">
     <a class="brand" href="#inicio" aria-label="Rio IA"><img src="logo.png" alt="Rio IA"></a>
     <nav class="nav" aria-label="Menu">
+      <a href="#experiencias" data-i="nav_xp">Experiências</a>
       <a href="#servicos" data-i="nav_services">Serviços</a>
       <a href="#como" data-i="nav_how">Como funciona</a>
       <a href="#quem" data-i="nav_about">Quem somos</a>
@@ -194,7 +216,7 @@ footer.site img{height:30px; width:auto; display:block}
         <p class="lede" data-i="lede">Hospedagem, transfers, passeios, barcos e noite. Você conta o que quer viver, a gente resolve o resto pelo WhatsApp.</p>
         <div class="ctas">
           <a class="btn btn-wa wa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.1c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.8-2.2 1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg><span data-i="cta">Fale conosco no WhatsApp</span></a>
-          <a class="btn btn-ghost" href="#servicos" data-i="cta2">Ver serviços</a>
+          <a class="btn btn-ghost" href="#experiencias" data-i="cta2">Ver serviços</a>
         </div>
       </div>
       <aside class="today" aria-live="polite">
@@ -207,6 +229,19 @@ footer.site img{height:30px; width:auto; display:block}
   </section>
 
   <div class="calcadao" aria-hidden="true"></div>
+
+  <section id="experiencias">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow" data-i="xp_eyebrow">Experiências</p>
+        <h2 data-i="xp_title">Escolha seu passeio</h2>
+        <p data-i="xp_lede">Fotos reais, o que inclui e o valor. Quando quiser reservar, é só tocar no botão e falar com a gente no WhatsApp.</p>
+      </div>
+      <div class="xp-filters" id="xpFilters"></div>
+      <div class="xps" id="xps"></div>
+      <div class="xp-wa"><p data-i="xp_wa_p">Não achou o que procura ou quer montar um plano completo? Fale direto com a gente.</p><a class="btn btn-wa wa" href="#" target="_blank" rel="noopener"><span data-i="xp_wa">Prefiro falar no WhatsApp</span></a></div>
+    </div>
+  </section>
 
   <section id="servicos">
     <div class="wrap">
@@ -301,15 +336,30 @@ const ICONS = {
   food:'<path d="M7 3v8m-3-8v5a3 3 0 0 0 6 0V3M7 11v10m10-18c-2 2-3 5-3 8h3v10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
   plane:'<path d="M2 14l20-7-6 13-3-5zM13 15l-3 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'
 };
+const XP = [
+  {k:"un-dia-en-rio", c:"tours", p:450, v:"2026-12-14", img:"p/un-dia-en-rio/img/IMG_4761.jpg"},
+  {k:"tijuca", c:"tours", p:200, v:"2026-12-25", img:"p/tijuca/img/hero.jpg"},
+  {k:"rocinha", c:"tours", p:250, v:"2026-12-25", img:"p/rocinha/img/atardecer.jpg", exact:true},
+  {k:"ilha-grande", c:"trips", p:250, v:"2026-12-25", img:"p/ilha-grande/img/grupo.jpg"},
+  {k:"barco", c:"boat", p:null, img:"p/barco/img/i1975.jpg"},
+  {k:"samba", c:"night", p:190, v:"2026-12-25", img:"p/samba/img/quadra.jpg"}
+];
+let xpFilter = "all";
 const SERVICES = [
-  {k:"stay", i:"home", top:true}, {k:"transfer", i:"car"}, {k:"tours", i:"mountain"}, {k:"trips", i:"island"},
-  {k:"boat", i:"boat"}, {k:"night", i:"music"}, {k:"food", i:"food"}, {k:"flights", i:"plane"}
+  {k:"stay", i:"home", top:true}, {k:"transfer", i:"car"}, {k:"tours", x:1, i:"mountain"}, {k:"trips", x:1, i:"island"},
+  {k:"boat", x:1, i:"boat"}, {k:"night", x:1, i:"music"}, {k:"food", i:"food"}, {k:"flights", i:"plane"}
 ];
 
 const T = {
 pt:{
+ nav_xp:"Experiências",cta2:"Ver experiências",xp_eyebrow:"Experiências",xp_title:"Escolha seu passeio",
+ xp_lede:"Fotos reais, o que inclui e o valor. Quando quiser reservar, é só tocar no botão e falar com a gente no WhatsApp.",
+ xp_wa_p:"Não achou o que procura ou quer montar um plano completo? Fale direto com a gente.",xp_wa:"Prefiro falar no WhatsApp",
+ xp_from:"A partir de",xp_pp:"por pessoa",xp_until:"Valor de baixa temporada até",xp_ask:"Valor sob consulta",xp_see:"Ver detalhes e reservar →",xp_seeopt:"Ver opções →",
+ xp_f:{all:"Todas",tours:"Passeios no Rio",trips:"Fora do Rio",boat:"Barcos e iates",night:"Noite"},
+ xp_n:{"un-dia-en-rio":"Um dia no Rio",tijuca:"Floresta da Tijuca e cachoeiras",rocinha:"Tour pela comunidade da Rocinha","ilha-grande":"Angra dos Reis e Ilha Grande",barco:"Barco ou iate na Baía de Guanabara",samba:"Noite de escola de samba"},
  nav_services:"Serviços",nav_how:"Como funciona",nav_about:"Quem somos",nav_faq:"Dúvidas",
- cta_short:"Fale conosco",cta:"Fale conosco no WhatsApp",cta2:"Ver serviços",
+ cta_short:"Fale conosco",cta:"Fale conosco no WhatsApp",
  motto:"Soluções, não problemas.",
  h1:"Seu <em>melhor amigo</em> no Rio de Janeiro",
  lede:"Hospedagem, transfers, passeios, barcos e noite. Você conta o que quer viver, a gente resolve o resto pelo WhatsApp.",
@@ -319,7 +369,7 @@ pt:{
  svc:{
   stay:["Hospedagem","Apartamentos, hotéis e casas de luxo escolhidos para o seu grupo, datas e orçamento.","Oi! Estou procurando hospedagem no Rio."],
   transfer:["Transfers","Do aeroporto ao hotel e para onde precisar, com motoristas de confiança.","Oi! Preciso de um transfer no Rio."],
-  tours:["Passeios no Rio","Um dia no Rio, Cristo e Pão de Açúcar, Floresta da Tijuca, favela tour e muito mais.","Oi! Quero fazer passeios no Rio."],
+  tours:["Passeios no Rio","Um dia no Rio, Cristo e Pão de Açúcar, Floresta da Tijuca, tour pela comunidade da Rocinha e muito mais.","Oi! Quero fazer passeios no Rio."],
   trips:["Fora do Rio","Ilha Grande, Arraial do Cabo, Búzios e Paraty, com tudo organizado.","Oi! Quero conhecer lugares fora do Rio."],
   boat:["Barcos e iates","Pôr do sol na baía, aniversários e despedidas de solteiro ou solteira.","Oi! Quero alugar um barco ou iate."],
   night:["Noite e festas","Samba, escolas de samba, festas e mesas nas melhores noites da semana.","Oi! Quero saber da noite e das festas no Rio."],
@@ -361,8 +411,14 @@ pt:{
  ]
 },
 es:{
+ nav_xp:"Experiencias",cta2:"Ver experiencias",xp_eyebrow:"Experiencias",xp_title:"Elegí tu paseo",
+ xp_lede:"Fotos reales, qué incluye y el valor. Cuando quieras reservar, tocás el botón y hablás con nosotros por WhatsApp.",
+ xp_wa_p:"¿No encontrás lo que buscás o querés armar un plan completo? Hablá directo con nosotros.",xp_wa:"Prefiero hablar por WhatsApp",
+ xp_from:"Desde",xp_pp:"por persona",xp_until:"Valor de temporada baja hasta el",xp_ask:"Valor a consultar",xp_see:"Ver detalles y reservar →",xp_seeopt:"Ver opciones →",
+ xp_f:{all:"Todas",tours:"Paseos en Río",trips:"Fuera de Río",boat:"Barcos y yates",night:"Noche"},
+ xp_n:{"un-dia-en-rio":"Un día en Río",tijuca:"Floresta da Tijuca y cascadas",rocinha:"Tour por la comunidad de la Rocinha","ilha-grande":"Angra dos Reis e Ilha Grande",barco:"Barco o yate por la Bahía de Guanabara",samba:"Noche de escola de samba"},
  nav_services:"Servicios",nav_how:"Cómo funciona",nav_about:"Quiénes somos",nav_faq:"Preguntas",
- cta_short:"Escribinos",cta:"Escribinos por WhatsApp",cta2:"Ver servicios",
+ cta_short:"Escribinos",cta:"Escribinos por WhatsApp",
  motto:"Soluciones, no problemas.",
  h1:"Tu <em>mejor amigo</em> en Río de Janeiro",
  lede:"Alojamiento, transfers, paseos, barcos y noche. Vos nos contás qué querés vivir y nosotros resolvemos el resto por WhatsApp.",
@@ -372,7 +428,7 @@ es:{
  svc:{
   stay:["Alojamiento","Apartamentos, hoteles y casas de lujo elegidos para tu grupo, tus fechas y tu presupuesto.","¡Hola! Estoy buscando alojamiento en Río."],
   transfer:["Transfers","Del aeropuerto al hotel y a donde necesites, con choferes de confianza.","¡Hola! Necesito un transfer en Río."],
-  tours:["Paseos en Río","Un día en Río, Cristo y Pan de Azúcar, Floresta da Tijuca, favela tour y mucho más.","¡Hola! Quiero hacer paseos en Río."],
+  tours:["Paseos en Río","Un día en Río, Cristo y Pan de Azúcar, Floresta da Tijuca, tour por la comunidad de la Rocinha y mucho más.","¡Hola! Quiero hacer paseos en Río."],
   trips:["Fuera de Río","Ilha Grande, Arraial do Cabo, Búzios y Paraty, con todo organizado.","¡Hola! Quiero conocer lugares fuera de Río."],
   boat:["Barcos y yates","Atardecer en la bahía, cumpleaños y despedidas de soltero o soltera.","¡Hola! Quiero alquilar un barco o yate."],
   night:["Noche y fiestas","Samba, escuelas de samba, fiestas y mesas en las mejores noches de la semana.","¡Hola! Quiero saber de la noche y las fiestas en Río."],
@@ -414,8 +470,14 @@ es:{
  ]
 },
 en:{
+ nav_xp:"Experiences",cta2:"See experiences",xp_eyebrow:"Experiences",xp_title:"Pick your tour",
+ xp_lede:"Real photos, what's included and the price. When you're ready to book, tap the button and talk to us on WhatsApp.",
+ xp_wa_p:"Can't find what you're looking for, or want a full plan? Talk to us directly.",xp_wa:"I'd rather talk on WhatsApp",
+ xp_from:"From",xp_pp:"per person",xp_until:"Low-season price until",xp_ask:"Price on request",xp_see:"See details & book →",xp_seeopt:"See options →",
+ xp_f:{all:"All",tours:"Tours in Rio",trips:"Day trips",boat:"Boats & yachts",night:"Nightlife"},
+ xp_n:{"un-dia-en-rio":"A day in Rio",tijuca:"Tijuca Forest & waterfalls",rocinha:"Rocinha community tour","ilha-grande":"Angra dos Reis & Ilha Grande",barco:"Boat or yacht on Guanabara Bay",samba:"Samba school night"},
  nav_services:"Services",nav_how:"How it works",nav_about:"About us",nav_faq:"FAQ",
- cta_short:"Message us",cta:"Message us on WhatsApp",cta2:"See services",
+ cta_short:"Message us",cta:"Message us on WhatsApp",
  motto:"Solutions, not problems.",
  h1:"Your <em>best friend</em> in Rio de Janeiro",
  lede:"Places to stay, transfers, tours, boats and nightlife. Tell us what you want to experience and we sort out the rest on WhatsApp.",
@@ -425,7 +487,7 @@ en:{
  svc:{
   stay:["Places to stay","Apartments, hotels and luxury homes picked for your group, your dates and your budget.","Hi! I'm looking for a place to stay in Rio."],
   transfer:["Transfers","Airport to hotel and anywhere else you need, with drivers we trust.","Hi! I need a transfer in Rio."],
-  tours:["Tours in Rio","A day in Rio, Christ the Redeemer and Sugarloaf, Tijuca Forest, favela tour and more.","Hi! I'd like to book tours in Rio."],
+  tours:["Tours in Rio","A day in Rio, Christ the Redeemer and Sugarloaf, Tijuca Forest, Rocinha community tour and more.","Hi! I'd like to book tours in Rio."],
   trips:["Beyond Rio","Ilha Grande, Arraial do Cabo, Búzios and Paraty, fully organized.","Hi! I'd like to visit places outside Rio."],
   boat:["Boats and yachts","Sunset on the bay, birthdays, bachelor and bachelorette parties.","Hi! I'd like to rent a boat or yacht."],
   night:["Nightlife","Samba, samba schools, parties and tables on the best nights of the week.","Hi! What's the nightlife like in Rio?"],
@@ -470,12 +532,28 @@ en:{
 const wa = (msg) => "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg + "\n" + REF);
 
 function pickLang(){
+  try{ const q = new URLSearchParams(location.search).get("lang"); if (T[q]) return q; }catch(e){}
   try{ const s = localStorage.getItem("rioia-lang"); if (T[s]) return s; }catch(e){}
   const h = (location.hash||"").slice(1); if (T[h]) return h;
   const n = (navigator.language||"pt").slice(0,2).toLowerCase();
   return T[n] ? n : "en";
 }
 
+function fmtDate(iso, lang){
+  const [y,m,d] = iso.split("-").map(Number);
+  if (lang==="en") return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][m-1]+" "+d+", "+y;
+  return String(d).padStart(2,"0")+"/"+String(m).padStart(2,"0")+"/"+y;
+}
+function renderXP(lang){
+  const t = T[lang], sub = lang==="es" ? "" : lang+"/";
+  document.getElementById("xpFilters").innerHTML = Object.entries(t.xp_f).map(([k,v])=>
+    `<button type="button" data-f="${k}" aria-pressed="${k===xpFilter}">${v}</button>`).join("");
+  document.getElementById("xps").innerHTML = XP.filter(x=>xpFilter==="all"||x.c===xpFilter).map(x=>{
+    const price = x.p ? `${x.exact?"":t.xp_from+" "}R$ ${x.p}<small>${t.xp_pp} · ${t.xp_until} ${fmtDate(x.v,lang)}</small>` : `${t.xp_ask}`;
+    return `<a class="xp" href="p/${x.k}/${sub}"><span class="ph" style="background-image:url('${x.img}')" role="img" aria-label="${t.xp_n[x.k]}"></span>
+      <span class="bd"><h3>${t.xp_n[x.k]}</h3><span class="pr">${price}</span><span class="go">${t.xp_see}</span></span></a>`;
+  }).join("");
+}
 function render(lang){
   const t = T[lang];
   document.documentElement.lang = lang === "pt" ? "pt-BR" : lang;
@@ -492,9 +570,10 @@ function render(lang){
     return `<button type="button" class="svc${s.top?" top-pick":""}" data-k="${s.k}">
       <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[s.i]}</svg></span>
       ${s.top?`<span class="pill">${t.popular}</span>`:""}
-      <h3>${title}</h3><p>${desc}</p><span class="go">${t.ask}</span></button>`;
+      <h3>${title}</h3><p>${desc}</p><span class="go">${s.x?t.xp_seeopt:t.ask}</span></button>`;
   }).join("");
 
+  renderXP(lang);
   document.getElementById("faq").innerHTML = t.faq.map(([q,a],i)=>`<details${i===0?" open":""}><summary>${q}</summary><p>${a}</p></details>`).join("");
 
   const d = new Date().getDay();
@@ -513,6 +592,8 @@ document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",
 }));
 document.getElementById("services").addEventListener("click", e=>{
   const b = e.target.closest(".svc"); if (!b) return;
+  const sv = SERVICES.find(x=>x.k===b.dataset.k);
+  if (sv && sv.x){ xpFilter = sv.k; renderXP(current); document.getElementById("experiencias").scrollIntoView({behavior:"smooth"}); return; }
   const link = document.createElement("a");
   link.href = wa(T[current].svc[b.dataset.k][2]); link.target = "_blank"; link.rel = "noopener";
   document.body.appendChild(link); link.click(); link.remove();
@@ -522,6 +603,9 @@ document.getElementById("copyBtn").addEventListener("click", async e=>{
   try{ await navigator.clipboard.writeText(num); btn.textContent = T[current].copied; }
   catch(err){ const r = document.createRange(); r.selectNodeContents(document.getElementById("phone")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
   setTimeout(()=>btn.textContent = T[current].copy, 1800);
+});
+document.getElementById("xpFilters").addEventListener("click", e=>{
+  const b = e.target.closest("button"); if (!b) return; xpFilter = b.dataset.f; renderXP(current);
 });
 render(current);
 </script>
