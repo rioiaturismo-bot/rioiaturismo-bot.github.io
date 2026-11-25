@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<title>Rio IA by SOLVAM</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Layout: una pantalla vertical. Capa 1 = video a pantalla completa con WhatsApp siempre a la vista.
+     Capa 2 = pantalla final (Rio IA, Soluções não problemas, FALE CONOSCO) que entra al terminar el video. */
+  :root {
+    --navy: #14384f;
+    --navy-deep: #0b2233;
+    --sand: #f5ece0;
+    --panel: #325169;
+    --orange: #f58a1f;
+    --orange-press: #d9740f;
+    --wa-ink: #1a1206;
+    --display: "Outfit", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    --body: "Nunito Sans", "Segoe UI", system-ui, sans-serif;
+    color-scheme: dark;
+  }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--navy-deep);
+    color: var(--sand);
+    font-family: var(--body);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    -webkit-tap-highlight-color: transparent;
+  }
+  #app {
+    position: relative;
+    height: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 18px;
+    background: var(--navy-deep);
+  }
+  #app { height: 100dvh; }
+  @media (max-width: 520px) {
+    body { padding-left: 0; padding-right: 0; }
+    #app { max-width: none; border-radius: 0; }
+  }
+  .layer { position: absolute; inset: 0; }
+
+  /* ---------- Capa 1: video ---------- */
+  #video { width: 100%; height: 100%; object-fit: cover; display: block; background: var(--navy-deep); }
+  .scrim {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 34%;
+    background: linear-gradient(to top, rgba(11,34,51,.82), rgba(11,34,51,0));
+    pointer-events: none;
+  }
+  .brand-tag {
+    position: absolute; top: 14px; left: 14px;
+    display: flex; align-items: center; gap: 8px;
+    font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: .02em;
+    color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,.55);
+  }
+  .brand-tag small { display: block; font-weight: 500; font-size: 10px; opacity: .85; letter-spacing: .06em; }
+  .pin { width: 22px; height: 22px; flex: none; }
+  .ctrl {
+    position: absolute; top: 12px; right: 12px;
+    display: flex; gap: 8px;
+  }
+  .chip {
+    appearance: none; border: 0; cursor: pointer;
+    min-height: 44px; min-width: 44px; padding: 0 14px;
+    border-radius: 999px;
+    background: rgba(11,34,51,.55);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    color: #fff; font: 700 13px/1 var(--body);
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .chip:focus-visible, .cta:focus-visible, .lang a:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+  .chip svg { width: 18px; height: 18px; }
+  .video-cta {
+    position: absolute; left: 16px; right: 16px; bottom: max(18px, env(safe-area-inset-bottom, 0px));
+    display: flex; justify-content: center;
+  }
+  #tap {
+    position: absolute; inset: 0; display: grid; place-items: center; background: rgba(11,34,51,.35);
+  }
+  #tap[hidden] { display: none; }
+  #tap .chip { min-height: 72px; padding: 0 28px; font-size: 16px; background: var(--orange); color: var(--wa-ink); }
+
+  /* ---------- CTA WhatsApp ---------- */
+  .cta {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 56px; padding: 0 28px; border-radius: 999px;
+    background: var(--orange); color: var(--wa-ink);
+    font: 800 16px/1 var(--display); letter-spacing: .08em; text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(245,138,31,.35);
+  }
+  .cta:active { background: var(--orange-press); transform: translateY(1px); }
+  .cta svg { width: 24px; height: 24px; flex: none; }
+  .video-cta .cta { min-height: 52px; font-size: 14px; }
+
+  /* ---------- Capa 2: pantalla final (igual a la página de Canva) ---------- */
+  #finalOLD {
+    opacity: 0; visibility: hidden; transition: opacity .7s ease, visibility 0s linear .7s;
+    display: flex; flex-direction: column; background: var(--panel);
+  }
+  #app.done #final { opacity: 1; visibility: visible; transition-delay: 0s; }
+  .hero {
+    flex: 0 0 60%; min-height: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+    text-align: center; padding: 20px;
+    background: linear-gradient(rgba(8,24,38,.38), rgba(8,24,38,.55)), url(hero.jpg) 34% 50% / cover no-repeat;
+  }
+  .hero .logo { width: min(70%, 290px); height: auto; filter: drop-shadow(0 2px 14px rgba(0,0,0,.4)); }
+  .slogan {
+    margin: 0; font: 700 clamp(15px, 4.6vw, 19px)/1.25 var(--display);
+    letter-spacing: .12em; text-transform: uppercase; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.5);
+  }
+  .panel {
+    flex: 1; min-height: 0; background: var(--panel);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    text-align: center; padding: 18px 24px max(18px, env(safe-area-inset-bottom, 0px));
+  }
+  .panel p { margin: 0; }
+  .l1 { font: 400 clamp(20px, 6vw, 26px)/1.2 var(--body); }
+  .l2 { font: 800 clamp(20px, 6vw, 26px)/1.2 var(--display); }
+  .l4 { font-size: 13px; line-height: 1.4; opacity: .75; max-width: 34ch; text-wrap: balance; }
+  .l3 { font-size: 14px; line-height: 1.45; opacity: .92; max-width: 32ch; text-wrap: balance; }
+  .lang { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; justify-content: center; }
+  .lang button {
+    appearance: none; cursor: pointer; min-height: 44px; padding: 0 10px; border-radius: 999px;
+    background: transparent; border: 1.5px solid rgba(245,236,224,.45); color: var(--sand);
+    font: 700 13px var(--body); letter-spacing: 0;
+  }
+  .lang button[aria-pressed="true"] { background: var(--orange); border-color: var(--orange); color: var(--wa-ink); }
+  html[lang^="ja"] .slogan, html[lang^="zh"] .slogan { letter-spacing: .04em; }
+  .lang button:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+  .replay { background: transparent; border: 0; color: var(--sand); opacity: .7; font: 600 13px var(--body); min-height: 44px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+  .brand-logo { position: absolute; top: 12px; left: 14px; width: 92px; height: auto; filter: drop-shadow(0 1px 6px rgba(0,0,0,.55)); }
+
+  @media (prefers-reduced-motion: reduce) { #final { transition: none; } }
+
+  /* ---------- Hub (pantalla final nueva) ---------- */
+  #final{opacity:0;visibility:hidden;transition:opacity .6s ease,visibility 0s linear .6s;display:block;background:#0D1B2A;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  #app.done #final{opacity:1;visibility:visible;transition-delay:0s}
+  .hhero{position:relative;padding:22px 20px 26px;text-align:center;background:linear-gradient(rgba(13,27,42,.45),rgba(13,27,42,.92)),url(/rioia/hero.jpg) 40% 35%/cover no-repeat}
+  .hhero .logo{width:150px;height:auto;filter:drop-shadow(0 2px 12px rgba(0,0,0,.45))}
+  .hhero .slogan{margin:6px 0 14px;font:700 12px/1.2 var(--display);letter-spacing:.14em;text-transform:uppercase;color:#F4B400}
+  .hhero h1{margin:0;font:800 clamp(26px,7.4vw,32px)/1.08 var(--display);color:#fff}
+  .hhero h1 em{font-style:normal;color:#4DD0C8}
+  .hhero .sub{margin:10px auto 0;max-width:34ch;font-size:15px;line-height:1.45;color:#E7ECF0}
+  .need{padding:20px 16px 8px}
+  .need h2{margin:0 0 12px;font:800 18px var(--display);color:#fff}
+  .tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .tile{appearance:none;border:1px solid rgba(77,208,200,.25);background:#13283D;color:#fff;border-radius:16px;min-height:76px;padding:12px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;text-align:left;cursor:pointer;font:700 15px/1.15 var(--display)}
+  .tile .ic{font-size:22px;line-height:1}
+  .tile small{font:600 11.5px/1.25 var(--body);color:#9FB2C3}
+  .tile:active{transform:scale(.98)}
+  .tile.help{grid-column:1/-1;flex-direction:row;align-items:center;gap:12px;background:#0F3A44;border-color:#00B4A6}
+  .foot{padding:18px 16px 110px;text-align:center}
+  .foot .lang{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+  .lang button{appearance:none;cursor:pointer;min-height:40px;padding:0 10px;border-radius:999px;background:transparent;border:1.5px solid rgba(245,236,224,.35);color:var(--sand);font:700 12px var(--body)}
+  .lang button[aria-pressed="true"]{background:#00B4A6;border-color:#00B4A6;color:#0D1B2A}
+  .replay{background:transparent;border:0;color:var(--sand);opacity:.65;font:600 13px var(--body);min-height:44px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;margin-top:6px}
+  .human{position:absolute;left:0;right:0;bottom:0;padding:10px 14px max(12px,env(safe-area-inset-bottom,0px));background:linear-gradient(0deg,#0D1B2A 70%,rgba(13,27,42,0));z-index:5}
+  .human a{display:flex;align-items:center;gap:12px;background:#00B4A6;color:#0D1B2A;text-decoration:none;border-radius:18px;padding:11px 16px;box-shadow:0 8px 24px rgba(0,180,166,.3)}
+  .human a svg{width:28px;height:28px;flex:none}
+  .human b{display:block;font:800 15px/1.1 var(--display)}
+  .human small{display:block;font:600 12px/1.25 var(--body);opacity:.85}
+  #app:not(.done) .human{display:none}
+  /* sheet */
+  .sheet{position:absolute;inset:0;background:#0D1B2A;z-index:8;transform:translateY(100%);transition:transform .35s ease;overflow-y:auto;padding:0 16px 120px}
+  .sheet.open{transform:none}
+  .sheet .bar{position:sticky;top:0;background:#0D1B2A;display:flex;align-items:center;gap:10px;padding:14px 0 10px;z-index:2}
+  .sheet .back{appearance:none;border:1px solid #2A4058;background:#13283D;color:#fff;border-radius:999px;min-height:40px;padding:0 14px;font:700 13px var(--body);cursor:pointer}
+  .sheet h3{margin:4px 0 6px;font:800 24px/1.1 var(--display);color:#fff}
+  .sheet .intro{margin:0 0 14px;color:#C9D3DC;font-size:14.5px;line-height:1.45}
+  .xp{display:block;background:#13283D;border-radius:16px;overflow:hidden;text-decoration:none;color:#fff;margin-bottom:12px}
+  .xp img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#0A1622}
+  .xp .t{padding:12px 14px 14px}
+  .xp b{display:block;font:800 16px/1.2 var(--display)}
+  .xp .pr{display:block;margin-top:4px;font-size:13px;color:#F4B400;font-weight:700}
+  .xp .go{display:block;margin-top:6px;font-size:13px;color:#4DD0C8;font-weight:700}
+  .qh{margin:18px 0 8px;font:700 13px var(--body);color:#9FB2C3;text-transform:uppercase;letter-spacing:.08em}
+  .q{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#13283D;border:1px solid rgba(77,208,200,.3);color:#fff;text-decoration:none;border-radius:14px;padding:13px 14px;margin-bottom:8px;font:700 14.5px/1.3 var(--body)}
+  .q span:last-child{color:#4DD0C8;flex:none}
+</style>
+<main id="app">
+  <section class="layer" id="stage" aria-label="Video">
+    <video id="video" muted playsinline webkit-playsinline preload="auto" poster="/rioia/poster.jpg" aria-label="Rio de Janeiro con Rio IA">
+      <source src="/rioia/promo.mp4" type="video/mp4">
+    </video>
+    <div class="scrim"></div>
+    <img class="brand-logo" src="/rioia/logo.png" alt="Rio IA">
+    <div class="ctrl">
+      <button class="chip" id="sound" type="button" aria-label="Activar sonido">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path id="wave" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+        <span id="soundTxt">Som</span>
+      </button>
+      <button class="chip" id="skip" type="button" data-i18n="skip">Pular</button>
+    </div>
+    <div class="video-cta">
+      <a class="cta wa" href="https://wa.me/message/FYT67YBV3P46I1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 14.9L2 22l5.27-1.38A9.9 9.9 0 1 0 12.04 2Zm0 18.1a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.13.82.84-3.05-.2-.31a8.2 8.2 0 1 1 6.97 3.86Zm4.5-6.1c-.25-.12-1.46-.72-1.69-.8-.23-.09-.39-.12-.56.12-.16.25-.64.8-.78.97-.14.16-.29.18-.53.06a6.7 6.7 0 0 1-3.3-2.88c-.25-.43.25-.4.71-1.32.08-.16.04-.3-.02-.42-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.41-.56-.42h-.47c-.16 0-.43.06-.65.3-.23.25-.86.84-.86 2.05 0 1.2.88 2.37 1 2.54.12.16 1.72 2.63 4.18 3.69 1.55.67 2.16.73 2.94.62.47-.07 1.46-.6 1.66-1.18.2-.57.2-1.07.14-1.17-.06-.1-.23-.16-.48-.28Z"/></svg>
+        <span data-i18n="cta">Fale conosco</span>
+      </a>
+    </div>
+    <div id="tap" hidden>
+      <button class="chip" id="tapBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7L8 5Z"/></svg>
+        <span data-i18n="tap">Toque para ver</span>
+      </button>
+    </div>
+  </section>
+
+  <section class="layer" id="final" aria-label="Rio IA">
+    <div class="hhero">
+      <img class="logo" src="/rioia/logo.png" alt="Rio IA">
+      <p class="slogan" data-i18n="slogan">Soluções, não problemas.</p>
+      <h1 id="hTitle"></h1>
+      <p class="sub" data-h="sub"></p>
+    </div>
+    <div class="need">
+      <h2 data-h="need"></h2>
+      <div class="tiles" id="tiles"></div>
+    </div>
+    <div class="foot">
+      <div class="lang" id="lang" role="group" aria-label="Idioma / Language">
+        <button type="button" data-l="pt">PT</button><button type="button" data-l="es">ES</button><button type="button" data-l="en">EN</button><button type="button" data-l="fr">FR</button><button type="button" data-l="de">DE</button><button type="button" data-l="ja">日本語</button><button type="button" data-l="zh">中文</button>
+      </div>
+      <button class="replay" id="replay" type="button" data-i18n="replay">Ver o vídeo de novo</button>
+    </div>
+  </section>
+  <section class="sheet" id="sheet" aria-modal="true" role="dialog">
+    <div class="bar"><button class="back" id="back" type="button" data-h="back"></button></div>
+    <h3 id="sTitle"></h3>
+    <p class="intro" id="sIntro"></p>
+    <div id="sXp"></div>
+    <p class="qh" data-h="quick"></p>
+    <div id="sQ"></div>
+  </section>
+  <div class="human">
+    <a class="wa" id="humanBtn" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 14.9L2 22l5.27-1.38A9.9 9.9 0 1 0 12.04 2Zm0 18.1a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.13.82.84-3.05-.2-.31a8.2 8.2 0 1 1 6.97 3.86Zm4.5-6.1c-.25-.12-1.46-.72-1.69-.8-.23-.09-.39-.12-.56.12-.16.25-.64.8-.78.97-.14.16-.29.18-.53.06a6.7 6.7 0 0 1-3.3-2.88c-.25-.43.25-.4.71-1.32.08-.16.04-.3-.02-.42-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.41-.56-.42h-.47c-.16 0-.43.06-.65.3-.23.25-.86.84-.86 2.05 0 1.2.88 2.37 1 2.54.12.16 1.72 2.63 4.18 3.69 1.55.67 2.16.73 2.94.62.47-.07 1.46-.6 1.66-1.18.2-.57.2-1.07.14-1.17-.06-.1-.23-.16-.48-.28Z"/></svg>
+      <span><b data-h="human"></b><small data-h="human_sub"></small></span>
+    </a>
+  </div>
+</main>
+
+<script>
+(function () {
+  // ===== CONFIG =====
+  // Número de WhatsApp de la empresa (formato internacional, sin + ni espacios).
+  var WA_NUMBER = "5521973236999";
+  var WA_FALLBACK = "https://wa.me/message/FYT67YBV3P46I1";
+  // Mensaje que el turista envía (sale escrito en WhatsApp). Si hay código de punto de venta se agrega al final "📍 CÓDIGO".
+  var MSG = {
+    pt: "Oiii! 👋 Estou no Rio e quero aproveitar a cidade ao máximo 🇧🇷☀️ O que vocês me recomendam fazer por aqui?",
+    es: "¡Holaaa! 👋 Estoy en Río y quiero aprovechar al máximo la ciudad 🇧🇷☀️ ¿Qué me recomiendan para hacer por acá?",
+    en: "Hiii! 👋 I'm in Rio and I want to make the most of the city 🇧🇷☀️ What do you recommend I do around here?",
+    fr: "Coucou ! 👋 Je suis à Rio et je veux profiter de la ville au maximum 🇧🇷☀️ Qu'est-ce que vous me conseillez de faire ici ?",
+    de: "Hallooo! 👋 Ich bin in Rio und will die Stadt voll auskosten 🇧🇷☀️ Was empfehlt ihr mir hier?",
+    ja: "こんにちは！👋 今リオにいて、街を思いっきり楽しみたいです 🇧🇷☀️ このあたりでおすすめは何ですか？",
+    zh: "你好呀！👋 我在里约，想好好玩遍这座城市 🇧🇷☀️ 这附近有什么推荐的吗？"
+  };
+  var T = {
+    pt: { cta: "Fale conosco", skip: "Pular", tap: "Toque para ver", sound: "Som", mute: "Mudo", slogan: "Soluções, não problemas.", l1: "Muito mais que passeios.", l2: "Seu melhor amigo no Rio.", l3: "Atendimento personalizado, recomendações honestas e pessoas de confiança para ajudar você a viver o melhor do Rio.", l4: "O Rio é a nossa casa. Também te ajudamos em Búzios, Ilha Grande e Arraial do Cabo.", replay: "Ver o vídeo de novo" },
+    es: { cta: "Escríbenos", skip: "Saltar", tap: "Toca para ver", sound: "Sonido", mute: "Silenciar", slogan: "Soluciones, no problemas.", l1: "Mucho más que paseos.", l2: "Tu mejor amigo en Río.", l3: "Atención personalizada, recomendaciones honestas y gente de confianza para ayudarte a vivir lo mejor de Río.", l4: "Río es nuestra casa. También te ayudamos en Búzios, Ilha Grande y Arraial do Cabo.", replay: "Ver el video de nuevo" },
+    en: { cta: "Chat with us", skip: "Skip", tap: "Tap to watch", sound: "Sound", mute: "Mute", slogan: "Solutions, not problems.", l1: "So much more than tours.", l2: "Your best friend in Rio.", l3: "Personal service, honest recommendations and people you can trust to help you live the best of Rio.", l4: "Rio is our home. We also help you in Búzios, Ilha Grande and Arraial do Cabo.", replay: "Watch the video again" },
+    fr: { cta: "Écrivez-nous", skip: "Passer", tap: "Touchez pour voir", sound: "Son", mute: "Couper", slogan: "Des solutions, pas des problèmes.", l1: "Bien plus que des excursions.", l2: "Votre meilleur ami à Rio.", l3: "Un accompagnement personnalisé, des conseils honnêtes et des gens de confiance pour vivre le meilleur de Rio.", l4: "Rio est notre maison. Nous vous aidons aussi à Búzios, Ilha Grande et Arraial do Cabo.", replay: "Revoir la vidéo" },
+    de: { cta: "Schreib uns", skip: "Überspringen", tap: "Tippen zum Ansehen", sound: "Ton", mute: "Stumm", slogan: "Lösungen, keine Probleme.", l1: "Viel mehr als nur Touren.", l2: "Dein bester Freund in Rio.", l3: "Persönliche Betreuung, ehrliche Empfehlungen und Menschen, denen du vertrauen kannst, damit du das Beste von Rio erlebst.", l4: "Rio ist unser Zuhause. Wir helfen dir auch in Búzios, Ilha Grande und Arraial do Cabo.", replay: "Video nochmal ansehen" },
+    ja: { cta: "メッセージを送る", skip: "スキップ", tap: "タップして再生", sound: "音声", mute: "ミュート", slogan: "問題ではなく、解決を。", l1: "ただのツアーではありません。", l2: "リオでのあなたの親友。", l3: "一人ひとりに合わせたサポート、正直なおすすめ、信頼できる人たちが、リオを心ゆくまで楽しむお手伝いをします。", l4: "リオは私たちの拠点です。Búzios、Ilha Grande、Arraial do Cabo でもご案内します。", replay: "もう一度見る" },
+    zh: { cta: "联系我们", skip: "跳过", tap: "点击观看", sound: "声音", mute: "静音", slogan: "解决方案，而非问题。", l1: "不只是观光游览。", l2: "您在里约的挚友。", l3: "个性化服务、诚实的建议和值得信赖的人，帮助您尽情体验里约的精彩。", l4: "里约是我们的大本营。我们也在 Búzios、Ilha Grande 和 Arraial do Cabo 为您服务。", replay: "重新观看" }
+  };
+  var HTML_LANG = { pt: "pt-BR", es: "es", en: "en", fr: "fr", de: "de", ja: "ja", zh: "zh-CN" };
+
+  // Código del punto de venta: tras # (ej. ...#IPA01) o ?p=IPA01
+  function getCode() {
+    var raw = (location.hash || "").replace(/^#/, "");
+    if (!raw) { try { raw = new URLSearchParams(location.search).get("p") || ""; } catch (e) {} }
+    return raw.replace(/[^A-Za-z0-9_-]/g, "").toUpperCase().slice(0, 24);
+  }
+  var code = getCode();
+
+  // Registro de escaneos y toques (etapa 2). Vacío = desactivado. Se completa con la URL del script de Google.
+  // Solo se envían datos anónimos: código del punto, evento e idioma. Sin nombre, teléfono ni cookies.
+  var LOG_URL = "https://script.google.com/macros/s/AKfycbwt50EELohS29gU0mc69n0x0VrjUxJ5JFSNCQyB-IQa3XkzWNbIzwkgQs5A_vnN6e4t3A/exec";
+  function logEvent(ev) {
+    if (!LOG_URL) return;
+    try {
+      var ua = navigator.userAgent || ""; var dev = /iPhone|iPad|iPod/.test(ua) ? "iPhone" : (/Android/.test(ua) ? "Android" : "Otro");
+      var body = JSON.stringify({ code: code || "WEB", event: ev, lang: lang, dev: dev });
+      if (navigator.sendBeacon && navigator.sendBeacon(LOG_URL, body)) return;
+      fetch(LOG_URL, { method: "POST", mode: "no-cors", keepalive: true, body: body });
+    } catch (e) {}
+  }
+
+  function detectLang() {
+    var list = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || "pt"];
+    for (var i = 0; i < list.length; i++) {
+      var l = String(list[i]).toLowerCase().slice(0, 2);
+      if (T[l]) return l;
+    }
+    return "pt";
+  }
+  var lang = detectLang();
+
+  function waLink(l) {
+    if (!WA_NUMBER) return WA_FALLBACK;
+    var m = MSG[l] + (code ? "\n\n📍 " + code : "");
+    return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(m);
+  }
+
+  // ===== HUB: "Pergunte o que quiser" =====
+  var XP = {
+    "un-dia-en-rio":{p:450,img:"/p/un-dia-en-rio/img/IMG_4761.jpg"},
+    "tijuca":{p:250,img:"/p/tijuca/img/hero.jpg"},
+    "rocinha":{p:250,img:"/p/rocinha/img/atardecer.jpg"},
+    "ilha-grande":{p:250,img:"/p/ilha-grande/img/grupo.jpg"},
+    "barco":{p:null,img:"/p/barco/img/i1975.jpg"},
+    "samba":{p:190,img:"/p/samba/img/quadra.jpg"}
+  };
+  var CATS = [
+    {k:"tours",ic:"🏔️",xp:["un-dia-en-rio","tijuca","rocinha"]},
+    {k:"boat",ic:"⛵",xp:["barco"]},
+    {k:"night",ic:"🎶",xp:["samba"]},
+    {k:"trips",ic:"🏝️",xp:["ilha-grande"]},
+    {k:"stay",ic:"🏠",xp:[]},
+    {k:"transfer",ic:"🚐",xp:[]},
+    {k:"food",ic:"🍽️",xp:[]},
+    {k:"flights",ic:"✈️",xp:[]},
+    {k:"help",ic:"💬",xp:[]}
+  ];
+  var H = {
+   pt:{t1:"Pergunte o que quiser.",t2:"A gente resolve.",sub:"Passeios, dicas, dúvidas ou um imprevisto: a Rio IA te ajuda com tudo no Rio.",need:"Do que você precisa?",human:"Falar com uma pessoa",human_sub:"Sempre tem alguém da equipe do outro lado",back:"← Voltar",quick:"Ou pergunte direto",from:"A partir de R$ ",pp:" por pessoa",ask:"Valor sob consulta",see:"Ver detalhes e reservar →",
+    xn:{"un-dia-en-rio":"Um dia no Rio",tijuca:"Floresta da Tijuca e cachoeiras",rocinha:"Tour pela comunidade da Rocinha","ilha-grande":"Angra dos Reis e Ilha Grande",barco:"Barco ou iate na Baía de Guanabara",samba:"Noite de escola de samba"},
+    c:{tours:["Passeios no Rio","Cristo, Tijuca, Rocinha…","Os passeios mais pedidos, com fotos reais e valor. Toque para ver tudo e reservar."],
+       boat:["Barcos","Pôr do sol, festas, iates","Barco privado ou iate na Baía de Guanabara, do jeito do seu grupo."],
+       night:["Noite","Samba, festas, baladas","O Rio de noite: samba, escolas de samba, festas e mesas."],
+       trips:["Fora do Rio","Ilha Grande, Arraial, Búzios","Bate e volta ou alguns dias fora, com tudo organizado."],
+       stay:["Hospedagem","Apês, hotéis, casas","Conta pra gente datas, quantas pessoas e o estilo. A gente te manda opções."],
+       transfer:["Transfer","Aeroporto e motorista","Motoristas de confiança, do aeroporto ao hotel e para onde precisar."],
+       food:["Onde comer","Restaurantes e bares","Os lugares que a gente recomendaria para um amigo."],
+       flights:["Passagens","Voos no Brasil e fora","A gente te ajuda a encontrar e comprar voos dentro e fora do Brasil."],
+       help:["Outra dúvida? Pergunte aqui","Segurança, dicas, um imprevisto… respondemos tudo","Qualquer coisa que você precisar no Rio, a gente te ajuda. É só perguntar."]},
+    q:{tours:[["Cristo e Pão de Açúcar","Quero ir ao Cristo Redentor e ao Pão de Açúcar."],["Montar meu roteiro","Quero ajuda para montar um roteiro para os dias que vou ficar no Rio."]],
+       boat:[["Pôr do sol de barco","Quero um passeio de barco no pôr do sol."],["Aniversário ou despedida","Quero um barco ou iate para um aniversário ou despedida."]],
+       night:[["O que tem hoje à noite?","O que tem de bom para fazer hoje à noite?"],["Mesa em balada","Quero reservar uma mesa numa balada."]],
+       trips:[["Arraial do Cabo","Quero conhecer Arraial do Cabo."],["Búzios","Quero conhecer Búzios."],["Paraty","Quero conhecer Paraty."]],
+       stay:[["Apartamento ou casa","Estou procurando um apartamento ou casa no Rio."],["Hotel","Estou procurando hotel no Rio."],["Réveillon ou Carnaval","Procuro hospedagem para o Réveillon ou o Carnaval."]],
+       transfer:[["Aeroporto → hotel","Preciso de um transfer do aeroporto para o hotel."],["Hotel → aeroporto","Preciso de um transfer do hotel para o aeroporto."],["Motorista por um dia","Quero um motorista por um dia."]],
+       food:[["Onde comer perto de mim","Onde vocês recomendam comer aqui perto?"],["Jantar especial","Quero uma dica de restaurante para um jantar especial."],["Bar para ver futebol","Quero um bar bom para assistir a um jogo."]],
+       flights:[["Voo dentro do Brasil","Preciso de uma passagem dentro do Brasil."],["Voo internacional","Preciso de uma passagem internacional."]],
+       help:[["Tenho uma dúvida","Oi! Tenho uma dúvida sobre o Rio."],["Dicas de segurança","Quais são as dicas de segurança para aproveitar o Rio tranquilo?"],["Preciso de ajuda agora","Oi! Preciso de ajuda agora."]]}},
+   es:{t1:"Preguntá lo que quieras.",t2:"Nosotros lo resolvemos.",sub:"Paseos, consejos, dudas o un imprevisto: Rio IA te ayuda con todo en Río.",need:"¿Qué necesitás?",human:"Hablar con una persona",human_sub:"Siempre hay alguien del equipo del otro lado",back:"← Volver",quick:"O preguntá directo",from:"Desde R$ ",pp:" por persona",ask:"Valor a consultar",see:"Ver detalles y reservar →",
+    xn:{"un-dia-en-rio":"Un día en Río",tijuca:"Floresta da Tijuca y cascadas",rocinha:"Tour por la comunidad de la Rocinha","ilha-grande":"Angra dos Reis e Ilha Grande",barco:"Barco o yate en la Bahía de Guanabara",samba:"Noche de escola de samba"},
+    c:{tours:["Paseos en Río","Cristo, Tijuca, Rocinha…","Los paseos más pedidos, con fotos reales y precio. Tocá para ver todo y reservar."],
+       boat:["Barcos","Atardecer, fiestas, yates","Barco privado o yate en la Bahía de Guanabara, a la medida de tu grupo."],
+       night:["Noche","Samba, fiestas, boliches","Río de noche: samba, escolas de samba, fiestas y mesas."],
+       trips:["Fuera de Río","Ilha Grande, Arraial, Búzios","Ida y vuelta en el día o unos días afuera, con todo organizado."],
+       stay:["Alojamiento","Aptos, hoteles, casas","Contanos fechas, cuántas personas y el estilo. Te mandamos opciones."],
+       transfer:["Transfer","Aeropuerto y chofer","Choferes de confianza, del aeropuerto al hotel y a donde necesites."],
+       food:["Dónde comer","Restaurantes y bares","Los lugares que le recomendaríamos a un amigo."],
+       flights:["Pasajes","Vuelos en Brasil y afuera","Te ayudamos a encontrar y comprar vuelos dentro y fuera de Brasil."],
+       help:["¿Otra duda? Preguntá acá","Seguridad, consejos, un imprevisto… respondemos todo","Lo que necesites en Río, te ayudamos. Solo preguntá."]},
+    q:{tours:[["Cristo y Pan de Azúcar","Quiero ir al Cristo Redentor y al Pan de Azúcar."],["Armar mi itinerario","Quiero ayuda para armar un itinerario para los días que voy a estar en Río."]],
+       boat:[["Atardecer en barco","Quiero un paseo en barco al atardecer."],["Cumpleaños o despedida","Quiero un barco o yate para un cumpleaños o despedida."]],
+       night:[["¿Qué hay hoy a la noche?","¿Qué hay bueno para hacer hoy a la noche?"],["Mesa en boliche","Quiero reservar una mesa en un boliche."]],
+       trips:[["Arraial do Cabo","Quiero conocer Arraial do Cabo."],["Búzios","Quiero conocer Búzios."],["Paraty","Quiero conocer Paraty."]],
+       stay:[["Apartamento o casa","Estoy buscando un apartamento o casa en Río."],["Hotel","Estoy buscando hotel en Río."],["Réveillon o Carnaval","Busco alojamiento para Réveillon o Carnaval."]],
+       transfer:[["Aeropuerto → hotel","Necesito un transfer del aeropuerto al hotel."],["Hotel → aeropuerto","Necesito un transfer del hotel al aeropuerto."],["Chofer por un día","Quiero un chofer por un día."]],
+       food:[["Dónde comer cerca","¿Dónde me recomiendan comer cerca de acá?"],["Cena especial","Quiero una recomendación de restaurante para una cena especial."],["Bar para ver fútbol","Quiero un buen bar para ver un partido."]],
+       flights:[["Vuelo dentro de Brasil","Necesito un pasaje dentro de Brasil."],["Vuelo internacional","Necesito un pasaje internacional."]],
+       help:[["Tengo una duda","¡Hola! Tengo una duda sobre Río."],["Consejos de seguridad","¿Qué consejos de seguridad me dan para disfrutar Río tranquilo?"],["Necesito ayuda ahora","¡Hola! Necesito ayuda ahora."]]}},
+   en:{t1:"Ask us anything.",t2:"We'll sort it out.",sub:"Tours, tips, questions or a last-minute problem: Rio IA helps you with everything in Rio.",need:"What do you need?",human:"Talk to a person",human_sub:"There's always someone from our team on the other side",back:"← Back",quick:"Or just ask",from:"From R$ ",pp:" per person",ask:"Price on request",see:"See details and book →",
+    xn:{"un-dia-en-rio":"A day in Rio",tijuca:"Tijuca Forest and waterfalls",rocinha:"Rocinha community tour","ilha-grande":"Angra dos Reis and Ilha Grande",barco:"Boat or yacht on Guanabara Bay",samba:"Samba school night"},
+    c:{tours:["Tours in Rio","Christ, Tijuca, Rocinha…","Our most popular tours, with real photos and prices. Tap to see everything and book."],
+       boat:["Boats","Sunset, parties, yachts","Private boat or yacht on Guanabara Bay, made for your group."],
+       night:["Nightlife","Samba, parties, clubs","Rio at night: samba, samba schools, parties and club tables."],
+       trips:["Outside Rio","Ilha Grande, Arraial, Búzios","Day trips or a few days away, all organized."],
+       stay:["Places to stay","Apartments, hotels, houses","Tell us your dates, how many people and your style. We'll send you options."],
+       transfer:["Transfers","Airport and private driver","Trusted drivers, from the airport to your hotel and wherever you need."],
+       food:["Where to eat","Restaurants and bars","The places we'd recommend to a friend."],
+       flights:["Flights","Within Brazil and abroad","We help you find and book flights within Brazil and abroad."],
+       help:["Something else? Ask here","Safety, tips, a problem… we answer everything","Whatever you need in Rio, we'll help. Just ask."]},
+    q:{tours:[["Christ the Redeemer & Sugarloaf","I want to visit Christ the Redeemer and Sugarloaf Mountain."],["Plan my itinerary","I'd like help planning an itinerary for my days in Rio."]],
+       boat:[["Sunset boat trip","I want a sunset boat trip."],["Birthday or bachelor party","I want a boat or yacht for a birthday or bachelor/bachelorette party."]],
+       night:[["What's on tonight?","What's good to do tonight?"],["Club table","I want to book a table at a club."]],
+       trips:[["Arraial do Cabo","I want to visit Arraial do Cabo."],["Búzios","I want to visit Búzios."],["Paraty","I want to visit Paraty."]],
+       stay:[["Apartment or house","I'm looking for an apartment or house in Rio."],["Hotel","I'm looking for a hotel in Rio."],["New Year's or Carnival","I'm looking for a place to stay for New Year's Eve or Carnival."]],
+       transfer:[["Airport → hotel","I need a transfer from the airport to my hotel."],["Hotel → airport","I need a transfer from my hotel to the airport."],["Driver for a day","I want a private driver for a day."]],
+       food:[["Where to eat nearby","Where do you recommend eating around here?"],["Special dinner","I'd like a restaurant tip for a special dinner."],["Sports bar","I want a good bar to watch a game."]],
+       flights:[["Flight within Brazil","I need a flight within Brazil."],["International flight","I need an international flight."]],
+       help:[["I have a question","Hi! I have a question about Rio."],["Safety tips","What safety tips do you have so I can enjoy Rio stress-free?"],["I need help now","Hi! I need help right now."]]}}
+  };
+  // FR/DE/JA/ZH: el hub usa inglés (video y textos generales siguen en su idioma)
+  function HL(l){ return H[l] || H.en; }
+  var PLANG = {pt:"pt/",en:"en/",es:""};
+  function waMsg(l, m){
+    var t = m || MSG[l];
+    return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(t + (code ? "\n\n📍 " + code : ""));
+  }
+  function esc(x){ return String(x).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+  var sheet, curCat = null;
+  function renderHub(l){
+    var h = HL(l);
+    document.getElementById("hTitle").innerHTML = esc(h.t1) + "<br><em>" + esc(h.t2) + "</em>";
+    document.querySelectorAll("[data-h]").forEach(function(el){ el.textContent = h[el.getAttribute("data-h")]; });
+    document.getElementById("tiles").innerHTML = CATS.map(function(c){
+      var n = h.c[c.k];
+      if (c.k === "help") return '<button class="tile help" data-k="help"><span class="ic">'+c.ic+'</span><span>'+esc(n[0])+'<br><small>'+esc(n[1])+'</small></span></button>';
+      return '<button class="tile" data-k="'+c.k+'"><span class="ic">'+c.ic+'</span>'+esc(n[0])+'<small>'+esc(n[1])+'</small></button>';
+    }).join("");
+    document.querySelectorAll(".tile").forEach(function(b){ b.addEventListener("click", function(){ openCat(b.dataset.k); }); });
+    document.getElementById("humanBtn").href = waMsg(l);
+    if (curCat) fillSheet(curCat);
+  }
+  function fillSheet(k){
+    var h = HL(lang), c = CATS.filter(function(x){return x.k===k;})[0], n = h.c[k];
+    var pl = PLANG[lang] !== undefined ? PLANG[lang] : "en/";
+    document.getElementById("sTitle").textContent = n[0].replace(/\?.*$/,"?");
+    document.getElementById("sIntro").textContent = n[2];
+    document.getElementById("sXp").innerHTML = c.xp.map(function(x){
+      var d = XP[x], pr = d.p ? h.from + d.p + h.pp : h.ask;
+      return '<a class="xp" data-x="'+x+'" href="/p/'+x+'/'+pl+(code?'#'+esc(code):'')+'"><img src="'+d.img+'" alt="" loading="lazy"><span class="t"><b>'+esc(h.xn[x])+'</b><span class="pr">'+esc(pr)+'</span><span class="go">'+esc(h.see)+'</span></span></a>';
+    }).join("");
+    document.getElementById("sQ").innerHTML = h.q[k].map(function(q){
+      return '<a class="q wa-q" href="'+waMsg(lang,q[1])+'" target="_blank" rel="noopener"><span>'+esc(q[0])+'</span><span>→</span></a>';
+    }).join("");
+    document.querySelectorAll("#sXp .xp").forEach(function(a){ a.addEventListener("click", function(){ logEvent("xp_"+a.dataset.x); }); });
+    document.querySelectorAll("#sQ .wa-q").forEach(function(a){ a.addEventListener("click", function(){ logEvent("wa_click"); }); });
+  }
+  function openCat(k){ curCat = k; fillSheet(k); sheet.classList.add("open"); sheet.scrollTop = 0; logEvent("cat_"+k); }
+  function closeCat(){ curCat = null; sheet.classList.remove("open"); }
+
+  function applyLang(l) {
+    lang = l;
+    document.documentElement.lang = HTML_LANG[l];
+    document.querySelectorAll("[data-i18n]").forEach(function (el) { el.textContent = T[l][el.getAttribute("data-i18n")]; });
+    document.querySelectorAll("a.wa").forEach(function (a) { a.href = waLink(l); });
+    document.querySelectorAll("#lang button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.l === l ? "true" : "false"); });
+    syncSound();
+    renderHub(l);
+  }
+  document.querySelectorAll("#lang button").forEach(function (b) {
+    b.addEventListener("click", function () { applyLang(b.dataset.l); });
+  });
+
+  // ===== Flujo video -> pantalla final =====
+  var app = document.getElementById("app");
+  var v = document.getElementById("video");
+  var tap = document.getElementById("tap");
+  var soundBtn = document.getElementById("sound");
+  var soundTxt = document.getElementById("soundTxt");
+  var wave = document.getElementById("wave");
+
+  var startTimer;
+  function finish() { app.classList.add("done"); try { v.pause(); } catch (e) {} }
+  function start() {
+    app.classList.remove("done");
+    var p;
+    try { v.currentTime = 0; p = v.play(); } catch (e) {}
+    // Si en 8 s el video no arrancó (conexión lenta o bloqueo), pasamos a la pantalla final con el botón.
+    clearTimeout(startTimer);
+    startTimer = setTimeout(function () { if (!app.classList.contains("done") && v.currentTime < 0.5) finish(); }, 8000);
+    if (p && p.then) {
+      p.then(function () { tap.hidden = true; }).catch(function () { tap.hidden = false; });
+    }
+  }
+  function syncSound() {
+    soundTxt.textContent = v.muted ? T[lang].sound : T[lang].mute;
+    soundBtn.setAttribute("aria-label", v.muted ? T[lang].sound : T[lang].mute);
+    wave.style.display = v.muted ? "none" : "";
+  }
+
+  v.addEventListener("ended", finish);
+  v.addEventListener("error", finish);
+  document.getElementById("skip").addEventListener("click", finish);
+  document.getElementById("replay").addEventListener("click", start);
+  document.getElementById("tapBtn").addEventListener("click", function () { v.muted = false; syncSound(); start(); });
+  soundBtn.addEventListener("click", function () {
+    v.muted = !v.muted; syncSound();
+    if (v.paused && !app.classList.contains("done")) { try { v.play(); } catch (e) {} }
+  });
+  // Si el video no avanza (conexión lenta o bloqueo), no dejamos al turista esperando.
+  var lastT = -1, stuck = 0;
+  setInterval(function () {
+    if (app.classList.contains("done") || !tap.hidden) return;
+    if (v.currentTime === lastT) { stuck++; } else { stuck = 0; lastT = v.currentTime; }
+    if (stuck >= 8) finish();
+  }, 1000);
+
+  v.addEventListener("ended", function () { logEvent("video_end"); });
+  document.getElementById("skip").addEventListener("click", function () { logEvent("skip"); });
+  document.querySelectorAll("a.wa").forEach(function (a) { a.addEventListener("click", function () { logEvent("wa_click"); }); });
+  try { if (!sessionStorage.getItem("rioia_scan")) { sessionStorage.setItem("rioia_scan", "1"); logEvent("scan"); } } catch (e) { logEvent("scan"); }
+
+  sheet = document.getElementById("sheet");
+  document.getElementById("back").addEventListener("click", closeCat);
+  applyLang(lang);
+  start();
+})();
+</script>
