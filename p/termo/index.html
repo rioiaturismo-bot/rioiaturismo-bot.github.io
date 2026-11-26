@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rio IA · Termo de Ciência de Riscos e Intermediação</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Playfair+Display:ital,wght@1,500&display=swap">
+<style>*{box-sizing:border-box}body{margin:0;background:#0D1B2A;color:#F6F3EE;font-family:Montserrat,system-ui,sans-serif}
+.w{max-width:720px;margin:0 auto;padding:0 20px 40px}
+header{display:flex;align-items:center;justify-content:space-between;padding:18px 0;gap:10px}
+header img{height:56px}.langs{display:flex;gap:6px}.langs button{background:none;color:#C9D3DC;font:700 13px Montserrat,sans-serif;border:1px solid #2A4058;border-radius:20px;padding:6px 10px;cursor:pointer}.langs button.on{background:#00B4A6;border-color:#00B4A6;color:#0D1B2A}
+.tag{color:#F4B400;font-weight:700;font-size:12px;letter-spacing:2px;margin:6px 0 0}
+h1{font-size:28px;line-height:1.15;margin:10px 0 8px;font-weight:800}
+.sub{color:#C9D3DC;font-size:15px;line-height:1.5;margin:0 0 18px}
+.box{background:#13283D;border-radius:16px;padding:18px 20px;margin:0 0 14px}
+.box h2{font-size:16px;color:#4DD0C8;margin:0 0 8px}
+.box p,.box li{font-size:14.5px;line-height:1.6;color:#E7ECF0;margin:0 0 6px}
+.box ol{padding-left:20px;margin:0}
+label{display:block;font-size:13px;font-weight:700;color:#C9D3DC;margin:12px 0 6px}
+input,select,textarea{width:100%;background:#0A1622;border:1px solid #2A4058;border-radius:12px;color:#F6F3EE;font:500 16px Montserrat,sans-serif;padding:12px 14px}
+textarea{min-height:70px}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:12px 0;font-size:14.5px;line-height:1.5;color:#E7ECF0}
+.chk input{width:22px;height:22px;flex:0 0 22px;margin-top:2px;accent-color:#00B4A6}
+.cta{display:block;width:100%;text-align:center;background:#00B4A6;color:#0D1B2A;font:800 17px Montserrat,sans-serif;padding:17px;border:0;border-radius:40px;margin:18px 0 8px;cursor:pointer}
+.cta:disabled{opacity:.4;cursor:not-allowed}
+.err{color:#F4B400;font-size:13px;min-height:18px}
+.small{color:#8FA3B5;font-size:12.5px;line-height:1.5}
+footer{border-top:1px solid rgba(244,180,0,.35);margin-top:26px;padding-top:16px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:8px;font-size:13px;color:#C9D3DC}
+footer i{font-family:'Playfair Display',serif;font-size:18px;color:#F6F3EE}
+</style></head><body><div class="w">
+<header><img src="../../logo.png" alt="Rio IA"><nav class="langs"><button data-l="pt">PT</button><button data-l="es">ES</button><button data-l="en">EN</button></nav></header>
+<p class="tag" data-t="tag"></p>
+<h1 data-t="title"></h1>
+<p class="sub" data-t="intro"></p>
+
+<div class="box"><h2 data-t="h_int"></h2><p data-t="p_int"></p></div>
+<div class="box"><h2 data-t="h_risk"></h2><p data-t="p_risk"></p></div>
+<div class="box"><h2 data-t="h_dec"></h2><ol id="decl"></ol></div>
+<div class="box"><h2 data-t="h_wx"></h2><p data-t="p_wx"></p></div>
+<div class="box"><h2 data-t="h_data"></h2><p data-t="p_data"></p></div>
+
+<div class="box">
+<h2 data-t="h_form"></h2>
+<label for="nm" data-t="f_name"></label><input id="nm" autocomplete="name">
+<label for="doc" data-t="f_doc"></label><input id="doc">
+<label for="act" data-t="f_act"></label><select id="act"></select>
+<label for="op" data-t="f_op"></label><input id="op">
+<label for="dt" data-t="f_date"></label><input id="dt" type="date">
+<label for="pax" data-t="f_pax"></label><textarea id="pax"></textarea>
+<div class="chk"><input type="checkbox" id="c1"><label for="c1" style="margin:0;font-weight:500;color:#E7ECF0" data-t="c1"></label></div>
+<div class="chk"><input type="checkbox" id="c2"><label for="c2" style="margin:0;font-weight:500;color:#E7ECF0" data-t="c2"></label></div>
+<button class="cta" id="go" data-t="btn"></button>
+<div class="err" id="err"></div>
+<p class="small" data-t="foot"></p>
+</div>
+
+<footer><div><b style="color:#F6F3EE">Rio IA</b> · SOLVAM TECNOLOGIA E TURISMO LTDA<br>CNPJ 70.060.622/0001-90 · Cadastur: Agência de Turismo<br>WhatsApp +55 21 97323-6999 · rioiaturismo.com.br</div><i>Soluções, não problemas.</i></footer>
+</div>
+<script>
+const V="v1 (26/11/2026)";
+const ACTS={helicoptero:{pt:"Voo de helicóptero",es:"Vuelo en helicóptero",en:"Helicopter flight"},
+"helicoptero-sem-portas":{pt:"Voo de helicóptero sem portas (Doors Off)",es:"Vuelo en helicóptero sin puertas (Doors Off)",en:"Doors Off helicopter flight"},
+"asa-delta":{pt:"Voo de asa-delta",es:"Vuelo en ala delta",en:"Hang gliding"},
+parapente:{pt:"Voo de parapente",es:"Vuelo en parapente",en:"Paragliding"},
+trilha:{pt:"Trilha / caminhada guiada",es:"Trilha / caminata guiada",en:"Guided hike"},
+barco:{pt:"Passeio de barco / lancha",es:"Paseo en barco / lancha",en:"Boat trip"},
+outro:{pt:"Outra atividade",es:"Otra actividad",en:"Other activity"}};
+const T={
+pt:{tag:"RIO IA · ANTES DA SUA ATIVIDADE",title:"Termo de Ciência de Riscos e Intermediação",
+intro:"Leia com atenção, preencha seus dados e envie pelo WhatsApp. Leva 2 minutos e é obrigatório para atividades de aventura.",
+h_int:"1. A Rio IA é intermediária",
+p_int:"A Rio IA (SOLVAM TECNOLOGIA E TURISMO LTDA, CNPJ 70.060.622/0001-90, agência de turismo cadastrada no Cadastur) atua apenas como intermediária na reserva. A atividade é executada por uma empresa operadora independente, que é a responsável pela operação, pelos equipamentos, pelos pilotos, instrutores ou guias, pelas autorizações exigidas e pelos seguros da atividade. Os valores pagos à Rio IA são recebidos por conta e ordem da operadora.",
+h_risk:"2. Riscos da atividade",
+p_risk:"Estou ciente de que atividades como voos de helicóptero (inclusive sem portas), asa-delta, parapente, trilhas e passeios no mar envolvem riscos próprios, que podem incluir quedas, lesões, mal-estar e, em casos extremos, ferimentos graves. Participo por livre e espontânea vontade.",
+h_dec:"3. Declaro que",
+d:["As informações que passei (nome, idade, peso e condições de saúde) são verdadeiras. Informações falsas podem colocar todos em risco e cancelar a atividade sem reembolso.",
+"Não tenho condição de saúde que me impeça de participar (por exemplo, problemas cardíacos, gravidez, cirurgia recente, labirintite ou medo extremo de altura) ou, se tenho, informei antes de reservar.",
+"Não estarei sob efeito de álcool ou drogas na atividade.",
+"Vou seguir sempre as instruções de segurança do piloto, instrutor ou guia, que podem encerrar a atividade a qualquer momento por segurança.",
+"Respeito os limites de idade e de peso informados (ex.: helicóptero sem portas a partir de 12 anos; limite de peso por assento e total por voo).",
+"Sou responsável pelos meus pertences; objetos soltos não são permitidos em voos sem portas."],
+h_wx:"4. Clima e alterações",
+p_wx:"A operadora pode alterar o roteiro, o horário ou cancelar a atividade por condições climáticas ou de segurança. Nesse caso, a Rio IA ajuda a remarcar ou, se não for possível, faz a devolução conforme a política informada na reserva.",
+h_data:"5. Seus dados",
+p_data:"Seus dados são usados somente para organizar a sua reserva e são compartilhados apenas com a operadora da atividade (LGPD, Lei 13.709/2018).",
+h_form:"Seus dados e aceite",f_name:"Nome completo",f_doc:"Documento (passaporte, CPF ou RG)",f_act:"Atividade",f_op:"Empresa operadora (se já informada)",f_date:"Data da atividade",
+f_pax:"Outros participantes (nome e idade de cada um). Menores de 18: o responsável legal aceita por eles.",
+c1:"Li e entendi este termo e aceito participar ciente dos riscos.",c2:"Sou maior de 18 anos e, se houver menores no grupo, sou o responsável legal por eles.",
+btn:"Aceitar e enviar pelo WhatsApp",
+foot:"Ao tocar no botão, abrimos o WhatsApp da Rio IA com o seu aceite preenchido. Basta enviar a mensagem. Este termo não limita os direitos garantidos pelo Código de Defesa do Consumidor.",
+errm:"Preencha nome, documento e data, e marque as duas caixas.",
+msg:"✅ ACEITE DO TERMO DE CIÊNCIA DE RISCOS E INTERMEDIAÇÃO",l_nm:"Nome",l_doc:"Documento",l_act:"Atividade",l_op:"Operadora",l_dt:"Data",l_pax:"Outros participantes",l_ok:"Li, entendi e aceito o termo",l_at:"Aceito em"},
+es:{tag:"RIO IA · ANTES DE TU ACTIVIDAD",title:"Término de Conocimiento de Riesgos e Intermediación",
+intro:"Leé con atención, completá tus datos y envialo por WhatsApp. Lleva 2 minutos y es obligatorio para actividades de aventura.",
+h_int:"1. Rio IA es intermediaria",
+p_int:"Rio IA (SOLVAM TECNOLOGIA E TURISMO LTDA, CNPJ 70.060.622/0001-90, agencia de turismo registrada en el Cadastur) actúa solo como intermediaria en la reserva. La actividad la realiza una empresa operadora independiente, que es la responsable de la operación, los equipos, los pilotos, instructores o guías, las autorizaciones exigidas y los seguros de la actividad. Los valores pagados a Rio IA se reciben por cuenta y orden de la operadora.",
+h_risk:"2. Riesgos de la actividad",
+p_risk:"Sé que actividades como vuelos en helicóptero (incluso sin puertas), ala delta, parapente, trilhas y paseos en el mar tienen riesgos propios, que pueden incluir caídas, lesiones, malestar y, en casos extremos, heridas graves. Participo por mi propia voluntad.",
+h_dec:"3. Declaro que",
+d:["La información que di (nombre, edad, peso y condiciones de salud) es verdadera. Datos falsos pueden poner en riesgo a todos y cancelar la actividad sin reembolso.",
+"No tengo ninguna condición de salud que me impida participar (por ejemplo, problemas cardíacos, embarazo, cirugía reciente, laberintitis o miedo extremo a la altura) o, si la tengo, la informé antes de reservar.",
+"No voy a estar bajo efecto de alcohol ni drogas durante la actividad.",
+"Voy a seguir siempre las instrucciones de seguridad del piloto, instructor o guía, que pueden terminar la actividad en cualquier momento por seguridad.",
+"Respeto los límites de edad y de peso informados (ej.: helicóptero sin puertas desde 12 años; límite de peso por asiento y total por vuelo).",
+"Soy responsable de mis pertenencias; en vuelos sin puertas no se permiten objetos sueltos."],
+h_wx:"4. Clima y cambios",
+p_wx:"La operadora puede cambiar la ruta, el horario o cancelar la actividad por clima o seguridad. En ese caso, Rio IA te ayuda a reprogramar o, si no se puede, hace la devolución según la política informada en la reserva.",
+h_data:"5. Tus datos",
+p_data:"Tus datos se usan solo para organizar tu reserva y se comparten únicamente con la operadora de la actividad (LGPD, Ley 13.709/2018).",
+h_form:"Tus datos y aceptación",f_name:"Nombre completo",f_doc:"Documento (pasaporte, CPF o cédula)",f_act:"Actividad",f_op:"Empresa operadora (si ya te la informamos)",f_date:"Fecha de la actividad",
+f_pax:"Otros participantes (nombre y edad de cada uno). Menores de 18: el responsable legal acepta por ellos.",
+c1:"Leí y entendí este término y acepto participar conociendo los riesgos.",c2:"Soy mayor de 18 años y, si hay menores en el grupo, soy su responsable legal.",
+btn:"Aceptar y enviar por WhatsApp",
+foot:"Al tocar el botón se abre el WhatsApp de Rio IA con tu aceptación completa. Solo tenés que enviar el mensaje. Este término no limita los derechos que garantiza el Código de Defensa del Consumidor de Brasil.",
+errm:"Completá nombre, documento y fecha, y marcá las dos casillas.",
+msg:"✅ ACEPTACIÓN DEL TÉRMINO DE CONOCIMIENTO DE RIESGOS E INTERMEDIACIÓN",l_nm:"Nombre",l_doc:"Documento",l_act:"Actividad",l_op:"Operadora",l_dt:"Fecha",l_pax:"Otros participantes",l_ok:"Leí, entendí y acepto el término",l_at:"Aceptado el"},
+en:{tag:"RIO IA · BEFORE YOUR ACTIVITY",title:"Risk Acknowledgement and Intermediation Terms",
+intro:"Please read carefully, fill in your details and send it via WhatsApp. It takes 2 minutes and is required for adventure activities.",
+h_int:"1. Rio IA acts as an intermediary",
+p_int:"Rio IA (SOLVAM TECNOLOGIA E TURISMO LTDA, CNPJ 70.060.622/0001-90, a travel agency registered with Cadastur, Brazil's Ministry of Tourism) acts only as an intermediary for the booking. The activity is carried out by an independent operating company, which is responsible for the operation, equipment, pilots, instructors or guides, required authorizations and insurance. Payments made to Rio IA are received on behalf of the operator.",
+h_risk:"2. Risks of the activity",
+p_risk:"I understand that activities such as helicopter flights (including doors-off), hang gliding, paragliding, hiking and sea trips carry inherent risks, which may include falls, injuries, discomfort and, in extreme cases, serious injury. I take part of my own free will.",
+h_dec:"3. I declare that",
+d:["The information I provided (name, age, weight and health conditions) is true. False information can put everyone at risk and lead to cancellation without refund.",
+"I have no health condition that prevents me from taking part (for example heart problems, pregnancy, recent surgery, vertigo or extreme fear of heights) or, if I do, I disclosed it before booking.",
+"I will not be under the influence of alcohol or drugs during the activity.",
+"I will always follow the safety instructions of the pilot, instructor or guide, who may end the activity at any time for safety reasons.",
+"I respect the stated age and weight limits (e.g. doors-off helicopter from age 12; weight limits per seat and per flight).",
+"I am responsible for my belongings; loose items are not allowed on doors-off flights."],
+h_wx:"4. Weather and changes",
+p_wx:"The operator may change the route or time, or cancel the activity, due to weather or safety conditions. In that case Rio IA will help you reschedule or, if that isn't possible, refund you according to the policy stated in your booking.",
+h_data:"5. Your data",
+p_data:"Your data is used only to organize your booking and is shared only with the activity operator (Brazilian Data Protection Law, LGPD 13.709/2018).",
+h_form:"Your details and acceptance",f_name:"Full name",f_doc:"ID (passport number)",f_act:"Activity",f_op:"Operating company (if already provided)",f_date:"Activity date",
+f_pax:"Other participants (name and age of each). Under 18: their legal guardian accepts on their behalf.",
+c1:"I have read and understood these terms and agree to take part aware of the risks.",c2:"I am over 18 and, if there are minors in the group, I am their legal guardian.",
+btn:"Accept and send via WhatsApp",
+foot:"Tapping the button opens Rio IA's WhatsApp with your acceptance filled in. Just send the message. These terms do not limit your rights under Brazil's Consumer Protection Code.",
+errm:"Please fill in name, ID and date, and tick both boxes.",
+msg:"✅ ACCEPTANCE OF RISK ACKNOWLEDGEMENT AND INTERMEDIATION TERMS",l_nm:"Name",l_doc:"ID",l_act:"Activity",l_op:"Operator",l_dt:"Date",l_pax:"Other participants",l_ok:"I have read, understood and accept the terms",l_at:"Accepted on"}};
+const q=new URLSearchParams(location.search);
+let L=(q.get("lang")||"pt").toLowerCase(); if(!T[L])L="pt";
+const $=id=>document.getElementById(id);
+if(q.get("op"))$("op").value=q.get("op");
+if(q.get("d"))$("dt").value=q.get("d");
+function render(){const t=T[L];document.documentElement.lang=L;
+document.querySelectorAll("[data-t]").forEach(e=>{e.textContent=t[e.dataset.t]});
+$("decl").innerHTML=t.d.map(x=>"<li>"+x+"</li>").join("");
+const cur=$("act").value||q.get("a")||"helicoptero";
+$("act").innerHTML=Object.keys(ACTS).map(k=>`<option value="${k}">${ACTS[k][L]}</option>`).join("");
+$("act").value=ACTS[cur]?cur:"outro";
+document.querySelectorAll(".langs button").forEach(b=>b.classList.toggle("on",b.dataset.l===L));$("err").textContent=""}
+document.querySelectorAll(".langs button").forEach(b=>b.onclick=()=>{L=b.dataset.l;render()});
+$("go").onclick=()=>{const t=T[L],nm=$("nm").value.trim(),doc=$("doc").value.trim(),dt=$("dt").value;
+if(!nm||!doc||!dt||!$("c1").checked||!$("c2").checked){$("err").textContent=t.errm;return}
+const now=new Date().toLocaleString("pt-BR",{timeZone:"America/Sao_Paulo"});
+const lines=[t.msg,"",t.l_nm+": "+nm,t.l_doc+": "+doc,t.l_act+": "+ACTS[$("act").value][L]];
+if($("op").value.trim())lines.push(t.l_op+": "+$("op").value.trim());
+lines.push(t.l_dt+": "+dt.split("-").reverse().join("/"));
+if($("pax").value.trim())lines.push(t.l_pax+": "+$("pax").value.trim().replace(/\n+/g,"; "));
+lines.push("","☑️ "+t.l_ok+" "+V,"rioiaturismo.com.br/p/termo/",t.l_at+": "+now+" (Brasília)");
+location.href="https://wa.me/5521973236999?text="+encodeURIComponent(lines.join("\n"))};
+render();
+</script></body></html>
