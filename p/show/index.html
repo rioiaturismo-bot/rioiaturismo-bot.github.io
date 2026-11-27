@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rio IA · Condições do Show · Evento Privado</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Playfair+Display:ital,wght@1,500&display=swap">
+<style>*{box-sizing:border-box}body{margin:0;background:#0D1B2A;color:#F6F3EE;font-family:Montserrat,system-ui,sans-serif}
+.w{max-width:720px;margin:0 auto;padding:0 20px 40px}
+header{display:flex;align-items:center;justify-content:space-between;padding:18px 0;gap:10px}
+header img{height:56px}.langs{display:flex;gap:6px}.langs button{background:none;color:#C9D3DC;font:700 13px Montserrat,sans-serif;border:1px solid #2A4058;border-radius:20px;padding:6px 10px;cursor:pointer}.langs button.on{background:#00B4A6;border-color:#00B4A6;color:#0D1B2A}
+.tag{color:#F4B400;font-weight:700;font-size:12px;letter-spacing:2px;margin:6px 0 0}
+h1{font-size:28px;line-height:1.15;margin:10px 0 8px;font-weight:800}
+.sub{color:#C9D3DC;font-size:15px;line-height:1.5;margin:0 0 18px}
+.box{background:#13283D;border-radius:16px;padding:18px 20px;margin:0 0 14px}
+.box h2{font-size:16px;color:#4DD0C8;margin:0 0 8px}
+.box p,.box li{font-size:14.5px;line-height:1.6;color:#E7ECF0;margin:0 0 6px}
+.box ol{padding-left:20px;margin:0}
+label{display:block;font-size:13px;font-weight:700;color:#C9D3DC;margin:12px 0 6px}
+input,select,textarea{width:100%;background:#0A1622;border:1px solid #2A4058;border-radius:12px;color:#F6F3EE;font:500 16px Montserrat,sans-serif;padding:12px 14px}
+textarea{min-height:60px}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:12px 0;font-size:14.5px;line-height:1.5;color:#E7ECF0}
+.chk input{width:22px;height:22px;flex:0 0 22px;margin-top:2px;accent-color:#00B4A6}
+.chk label{margin:0;font-weight:500;color:#E7ECF0;font-size:14.5px}
+.cta{display:block;width:100%;text-align:center;background:#00B4A6;color:#0D1B2A;font:800 17px Montserrat,sans-serif;padding:17px;border:0;border-radius:40px;margin:18px 0 8px;cursor:pointer}
+.err{color:#F4B400;font-size:13px;min-height:18px}
+.small{color:#8FA3B5;font-size:12.5px;line-height:1.5}
+footer{border-top:1px solid rgba(244,180,0,.35);margin-top:26px;padding-top:16px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:8px;font-size:13px;color:#C9D3DC}
+footer i{font-family:'Playfair Display',serif;font-size:18px;color:#F6F3EE}
+</style></head><body><div class="w">
+<header><img src="../../logo.png" alt="Rio IA"><nav class="langs"><button data-l="pt">PT</button><button data-l="es">ES</button><button data-l="en">EN</button></nav></header>
+<p class="tag" data-t="tag"></p>
+<h1 data-t="title"></h1>
+<p class="sub" data-t="intro"></p>
+
+<div class="box"><h2 data-t="h1"></h2><p data-t="p1"></p></div>
+<div class="box"><h2 data-t="h2"></h2><p data-t="p2"></p></div>
+<div class="box"><h2 data-t="h3"></h2><ol id="rules"></ol></div>
+<div class="box"><h2 data-t="h4"></h2><p data-t="p4"></p></div>
+<div class="box"><h2 data-t="h5"></h2><ol id="pay"></ol></div>
+<div class="box"><h2 data-t="h6"></h2><p data-t="p6"></p></div>
+
+<div class="box">
+<h2 data-t="h_form"></h2>
+<label for="nm" data-t="f_name"></label><input id="nm" autocomplete="name">
+<label for="doc" data-t="f_doc"></label><input id="doc">
+<label for="sv" data-t="f_sv"></label><input id="sv">
+<label for="dt" data-t="f_date"></label><input id="dt" type="date">
+<label for="hr" data-t="f_hr"></label><input id="hr" type="time">
+<label for="lc" data-t="f_loc"></label><textarea id="lc"></textarea>
+<label for="gs" data-t="f_gs"></label><input id="gs" type="number" min="1" inputmode="numeric">
+<div class="chk"><input type="checkbox" id="c1"><label for="c1" data-t="c1"></label></div>
+<div class="chk"><input type="checkbox" id="c2"><label for="c2" data-t="c2"></label></div>
+<div class="chk"><input type="checkbox" id="c3"><label for="c3" data-t="c3"></label></div>
+<button class="cta" id="go" data-t="btn"></button>
+<div class="err" id="err"></div>
+<p class="small" data-t="foot"></p>
+</div>
+
+<footer><div><b style="color:#F6F3EE">Rio IA</b> · SOLVAM TECNOLOGIA E TURISMO LTDA<br>CNPJ 70.060.622/0001-90<br>WhatsApp +55 21 97323-6999 · rioiaturismo.com.br</div><i>Soluções, não problemas.</i></footer>
+</div>
+<script>
+const V="v1 (27/11/2026)";
+const T={
+pt:{tag:"RIO IA · EVENTO PRIVADO",title:"Condições do Show e Animação",
+intro:"Leia, preencha os dados do organizador e envie pelo WhatsApp. Leva 2 minutos. A reserva só é confirmada depois deste aceite.",
+h1:"1. O que está incluído",
+p1:"Apresentação artística de dança e/ou presença de animação (recepção, interação social e animação do ambiente), pelo tempo e na quantidade de artistas combinados na reserva. O serviço é exclusivamente artístico e de entretenimento: não inclui, em nenhuma hipótese, serviço sexual, contato íntimo ou qualquer atividade fora do show combinado.",
+h2:"2. Rio IA organiza e intermedeia",
+p2:"A Rio IA (SOLVAM TECNOLOGIA E TURISMO LTDA, CNPJ 70.060.622/0001-90) organiza o evento e intermedeia a contratação. As artistas são profissionais independentes, maiores de 18 anos, com documento verificado pela Rio IA. O valor do cachê das artistas é recebido pela Rio IA por conta e ordem delas e repassado integralmente.",
+h3:"3. Regras do evento (valem para todos os convidados)",
+r:["Todos os presentes são maiores de 18 anos.",
+"É proibido tocar as artistas sem consentimento, assediar, insistir ou oferecer dinheiro por qualquer coisa fora do show combinado.",
+"É proibido fotografar ou filmar as artistas sem autorização delas.",
+"Não são permitidas armas nem drogas ilícitas no local. Bebida alcoólica não pode ser oferecida às artistas de forma insistente.",
+"As artistas podem interromper a apresentação a qualquer momento se se sentirem desrespeitadas ou inseguras.",
+"Se alguma regra for descumprida, o show é encerrado na hora, sem reembolso, e o organizador responde por eventuais danos."],
+h4:"4. Local do evento",
+p4:"O organizador garante que tem autorização do dono do imóvel ou da embarcação para realizar o evento, que respeita os horários de silêncio e regras do condomínio e, no caso de barco, que a embarcação é regularizada na Marinha e respeita a lotação. Se o local não permitir a entrada ou a apresentação, vale a política de cancelamento abaixo.",
+h5:"5. Pagamento e cancelamento",
+pay:["Para reservar: 50% do valor total. O restante é pago antes do início do show.",
+"Cancelamento pelo organizador com mais de 48 horas: devolução do sinal. Com menos de 48 horas: o sinal não é devolvido (cachê já reservado das artistas).",
+"Atraso do grupo: o horário combinado é mantido e o tempo perdido não é reposto. Hora extra só com acordo e pagamento na hora.",
+"Se alguma artista não puder comparecer, a Rio IA envia outra de perfil equivalente ou devolve o valor correspondente."],
+h6:"6. Seus dados",
+p6:"Os dados são usados apenas para organizar o evento e compartilhados somente com as artistas e o fornecedor do local, quando necessário (LGPD, Lei 13.709/2018).",
+h_form:"Dados do organizador e aceite",f_name:"Nome completo do organizador",f_doc:"Documento (passaporte, CPF ou RG)",f_sv:"Serviço contratado",f_date:"Data do evento",f_hr:"Horário de início do show",f_loc:"Local (endereço da casa ou nome do barco e ponto de embarque)",f_gs:"Número aproximado de convidados",
+c1:"Li e aceito estas condições em nome de todo o grupo.",c2:"Declaro que sou maior de 18 anos e que todos os convidados presentes também são.",c3:"Tenho autorização para realizar o evento no local informado.",
+btn:"Aceitar e enviar pelo WhatsApp",
+foot:"Ao tocar no botão, abrimos o WhatsApp da Rio IA com o seu aceite preenchido. Basta enviar a mensagem. Estas condições não limitam os direitos do Código de Defesa do Consumidor.",
+errm:"Preencha nome, documento, data e local, e marque as três caixas.",
+msg:"✅ ACEITE · CONDIÇÕES DO SHOW E ANIMAÇÃO",l_nm:"Organizador",l_doc:"Documento",l_sv:"Serviço",l_dt:"Data",l_hr:"Horário",l_lc:"Local",l_gs:"Convidados",l_ok:"Li e aceito as condições, todos maiores de 18, local autorizado",l_at:"Aceito em"},
+es:{tag:"RIO IA · EVENTO PRIVADO",title:"Condiciones del Show y Animación",
+intro:"Leé, completá los datos del organizador y envialo por WhatsApp. Lleva 2 minutos. La reserva solo se confirma después de esta aceptación.",
+h1:"1. Qué incluye",
+p1:"Presentación artística de danza y/o presencia de animación (recepción, interacción social y animación del ambiente), por el tiempo y la cantidad de artistas acordados en la reserva. El servicio es exclusivamente artístico y de entretenimiento: no incluye, bajo ningún concepto, servicios sexuales, contacto íntimo ni ninguna actividad fuera del show acordado.",
+h2:"2. Rio IA organiza e intermedia",
+p2:"Rio IA (SOLVAM TECNOLOGIA E TURISMO LTDA, CNPJ 70.060.622/0001-90) organiza el evento e intermedia la contratación. Las artistas son profesionales independientes, mayores de 18 años, con documento verificado por Rio IA. El valor del caché de las artistas lo recibe Rio IA por cuenta y orden de ellas y se les transfiere completo.",
+h3:"3. Reglas del evento (valen para todos los invitados)",
+r:["Todos los presentes son mayores de 18 años.",
+"Está prohibido tocar a las artistas sin su consentimiento, acosarlas, insistir u ofrecer dinero por cualquier cosa fuera del show acordado.",
+"Está prohibido sacarles fotos o filmarlas sin su autorización.",
+"No se permiten armas ni drogas ilegales en el lugar. No se puede insistir para que las artistas tomen alcohol.",
+"Las artistas pueden cortar la presentación en cualquier momento si se sienten irrespetadas o inseguras.",
+"Si se incumple alguna regla, el show se termina en el momento, sin reembolso, y el organizador responde por los daños que hubiera."],
+h4:"4. Lugar del evento",
+p4:"El organizador garantiza que tiene autorización del dueño de la casa o de la embarcación para hacer el evento, que respeta los horarios de silencio y las reglas del condominio y, si es en barco, que la embarcación está habilitada por la Marina de Brasil y respeta la capacidad. Si el lugar no permite la entrada o el show, se aplica la política de cancelación de abajo.",
+h5:"5. Pago y cancelación",
+pay:["Para reservar: 50% del total. El resto se paga antes de que empiece el show.",
+"Cancelación del organizador con más de 48 horas: se devuelve la seña. Con menos de 48 horas: la seña no se devuelve (caché de las artistas ya reservado).",
+"Si el grupo se atrasa, se mantiene el horario acordado y el tiempo perdido no se repone. Hora extra solo si se acuerda y se paga en el momento.",
+"Si alguna artista no puede ir, Rio IA manda otra de perfil equivalente o devuelve el valor correspondiente."],
+h6:"6. Tus datos",
+p6:"Los datos se usan solo para organizar el evento y se comparten únicamente con las artistas y el proveedor del lugar, cuando hace falta (LGPD, Ley 13.709/2018).",
+h_form:"Datos del organizador y aceptación",f_name:"Nombre completo del organizador",f_doc:"Documento (pasaporte, CPF o cédula)",f_sv:"Servicio contratado",f_date:"Fecha del evento",f_hr:"Hora de inicio del show",f_loc:"Lugar (dirección de la casa o nombre del barco y punto de embarque)",f_gs:"Cantidad aproximada de invitados",
+c1:"Leí y acepto estas condiciones en nombre de todo el grupo.",c2:"Declaro que soy mayor de 18 años y que todos los invitados presentes también lo son.",c3:"Tengo autorización para hacer el evento en el lugar indicado.",
+btn:"Aceptar y enviar por WhatsApp",
+foot:"Al tocar el botón se abre el WhatsApp de Rio IA con tu aceptación completa. Solo tenés que enviar el mensaje. Estas condiciones no limitan los derechos del Código de Defensa del Consumidor de Brasil.",
+errm:"Completá nombre, documento, fecha y lugar, y marcá las tres casillas.",
+msg:"✅ ACEPTACIÓN · CONDICIONES DEL SHOW Y ANIMACIÓN",l_nm:"Organizador",l_doc:"Documento",l_sv:"Servicio",l_dt:"Fecha",l_hr:"Hora",l_lc:"Lugar",l_gs:"Invitados",l_ok:"Leí y acepto las condiciones, todos mayores de 18, lugar autorizado",l_at:"Aceptado el"},
+en:{tag:"RIO IA · PRIVATE EVENT",title:"Show and Entertainment Terms",
+intro:"Please read, fill in the organizer's details and send it via WhatsApp. It takes 2 minutes. Your booking is only confirmed after this acceptance.",
+h1:"1. What's included",
+p1:"An artistic dance performance and/or entertainment presence (welcoming guests, socializing and livening up the party), for the time and number of performers agreed in the booking. The service is strictly artistic entertainment: under no circumstances does it include sexual services, intimate contact or any activity beyond the agreed show.",
+h2:"2. Rio IA organizes and intermediates",
+p2:"Rio IA (SOLVAM TECNOLOGIA E TURISMO LTDA, CNPJ 70.060.622/0001-90) organizes the event and intermediates the booking. The performers are independent professionals, all over 18, with ID checked by Rio IA. The performers' fee is received by Rio IA on their behalf and passed on to them in full.",
+h3:"3. Event rules (apply to every guest)",
+r:["Everyone present is over 18.",
+"Touching the performers without consent, harassing them, insisting or offering money for anything beyond the agreed show is forbidden.",
+"Photographing or filming the performers without their permission is forbidden.",
+"No weapons or illegal drugs on the premises. Do not pressure performers to drink alcohol.",
+"Performers may stop the show at any time if they feel disrespected or unsafe.",
+"If any rule is broken, the show ends immediately with no refund, and the organizer is liable for any damages."],
+h4:"4. Venue",
+p4:"The organizer confirms they have permission from the owner of the house or boat to hold the event, will respect quiet hours and building rules and, for boats, that the vessel is registered with the Brazilian Navy and within its capacity. If the venue does not allow entry or the show, the cancellation policy below applies.",
+h5:"5. Payment and cancellation",
+pay:["To book: 50% of the total. The balance is paid before the show starts.",
+"Cancellation by the organizer more than 48 hours before: deposit refunded. Less than 48 hours: deposit not refunded (performers' time already booked).",
+"If the group is late, the agreed time stays the same and lost time is not made up. Extra time only if agreed and paid on the spot.",
+"If a performer cannot attend, Rio IA sends a similar replacement or refunds the corresponding amount."],
+h6:"6. Your data",
+p6:"Your data is used only to organize the event and shared only with the performers and the venue provider when needed (Brazilian Data Protection Law, LGPD 13.709/2018).",
+h_form:"Organizer details and acceptance",f_name:"Organizer's full name",f_doc:"ID (passport number)",f_sv:"Service booked",f_date:"Event date",f_hr:"Show start time",f_loc:"Venue (house address, or boat name and boarding point)",f_gs:"Approximate number of guests",
+c1:"I have read and accept these terms on behalf of the whole group.",c2:"I confirm I am over 18 and so are all guests present.",c3:"I have permission to hold the event at this venue.",
+btn:"Accept and send via WhatsApp",
+foot:"Tapping the button opens Rio IA's WhatsApp with your acceptance filled in. Just send the message. These terms do not limit your rights under Brazil's Consumer Protection Code.",
+errm:"Please fill in name, ID, date and venue, and tick all three boxes.",
+msg:"✅ ACCEPTANCE · SHOW AND ENTERTAINMENT TERMS",l_nm:"Organizer",l_doc:"ID",l_sv:"Service",l_dt:"Date",l_hr:"Time",l_lc:"Venue",l_gs:"Guests",l_ok:"I have read and accept the terms, all over 18, venue authorized",l_at:"Accepted on"}};
+const q=new URLSearchParams(location.search);
+let L=(q.get("lang")||"pt").toLowerCase(); if(!T[L])L="pt";
+const $=id=>document.getElementById(id);
+if(q.get("s"))$("sv").value=q.get("s");
+if(q.get("d"))$("dt").value=q.get("d");
+if(q.get("h"))$("hr").value=q.get("h");
+if(q.get("l"))$("lc").value=q.get("l");
+function render(){const t=T[L];document.documentElement.lang=L;
+document.querySelectorAll("[data-t]").forEach(e=>{e.textContent=t[e.dataset.t]});
+$("rules").innerHTML=t.r.map(x=>"<li>"+x+"</li>").join("");
+$("pay").innerHTML=t.pay.map(x=>"<li>"+x+"</li>").join("");
+document.querySelectorAll(".langs button").forEach(b=>b.classList.toggle("on",b.dataset.l===L));$("err").textContent=""}
+document.querySelectorAll(".langs button").forEach(b=>b.onclick=()=>{L=b.dataset.l;render()});
+$("go").onclick=()=>{const t=T[L],v=id=>$(id).value.trim(),nm=v("nm"),doc=v("doc"),dt=$("dt").value,lc=v("lc");
+if(!nm||!doc||!dt||!lc||!$("c1").checked||!$("c2").checked||!$("c3").checked){$("err").textContent=t.errm;return}
+const now=new Date().toLocaleString("pt-BR",{timeZone:"America/Sao_Paulo"});
+const lines=[t.msg,"",t.l_nm+": "+nm,t.l_doc+": "+doc];
+if(v("sv"))lines.push(t.l_sv+": "+v("sv"));
+lines.push(t.l_dt+": "+dt.split("-").reverse().join("/")+(v("hr")?" · "+t.l_hr+": "+v("hr"):""));
+lines.push(t.l_lc+": "+lc.replace(/\n+/g,", "));
+if(v("gs"))lines.push(t.l_gs+": "+v("gs"));
+lines.push("","☑️ "+t.l_ok+" "+V,"rioiaturismo.com.br/p/show/",t.l_at+": "+now+" (Brasília)");
+location.href="https://wa.me/5521973236999?text="+encodeURIComponent(lines.join("\n"))};
+render();
+</script></body></html>
